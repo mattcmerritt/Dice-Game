@@ -119,4 +119,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable
 
         ActiveMovementRoutine = null;
     }
+
+    public string GetDetails()
+    {
+        return $"{gameObject.name}\nHealth: N/A\n{(IsMoving ? $"Moves: {MovesRemaining}" : (HasMoved ? "Unable to move" : "Able to move"))}";
+    }
 }

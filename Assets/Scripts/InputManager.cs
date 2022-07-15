@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class InputManager : MonoBehaviour
 
     // selection data
     [SerializeField] private GameObject SelectedObject;
+    [SerializeField] private GameObject DetailsPanel;
+    [SerializeField] private TMP_Text DetailsBox;
+    [SerializeField] private Image Portrait;
 
     private void Update()
     {
@@ -69,6 +74,9 @@ public class InputManager : MonoBehaviour
                 if (hit == null)
                 {
                     SelectedObject = null;
+                    Debug.Log("Nothing to select");
+
+                    DetailsPanel.SetActive(false);
                 }
                 else if (hit.GetComponent<Character>() != null)
                 {
@@ -76,6 +84,8 @@ public class InputManager : MonoBehaviour
                     SelectedObject = hit.gameObject;
 
                     Debug.Log($"Selected {SelectedObject.name}");
+
+                    DetailsPanel.SetActive(true);
                 }
                 else
                 {
@@ -86,6 +96,8 @@ public class InputManager : MonoBehaviour
             {
                 SelectedObject = null;
                 Debug.Log("Deselected");
+
+                DetailsPanel.SetActive(false);
             } 
         }
 
@@ -96,6 +108,13 @@ public class InputManager : MonoBehaviour
             {
                 SelectedObject.GetComponent<Character>().StartMoving();
             }
+        }
+
+        // UI
+        if (DetailsPanel.activeSelf)
+        {
+            DetailsBox.SetText(SelectedObject.GetComponent<ISelectable>().GetDetails());
+            Portrait.sprite = SelectedObject.GetComponent<SpriteRenderer>().sprite;
         }
     }
 
