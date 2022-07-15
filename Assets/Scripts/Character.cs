@@ -5,9 +5,9 @@ using UnityEngine;
 public class Character : MonoBehaviour, ISelectable, IMovable
 {
     // instance data
-    private bool IsSelected;
-    private bool IsMoving;
-    private bool HasMoved;
+    [SerializeField] private bool IsSelected;
+    [SerializeField] private bool IsMoving;
+    private bool UsedMovement;
     [SerializeField] private int MovesRemaining;
     private int X, Y;
 
@@ -20,6 +20,14 @@ public class Character : MonoBehaviour, ISelectable, IMovable
     {
         X = (int) transform.position.x;
         Y = (int) transform.position.y;
+
+        StartTurn();
+    }
+
+    public void StartTurn()
+    {
+        // roll a die
+        MovesRemaining = Random.Range(1, 7);
     }
 
     public void Select()
@@ -34,11 +42,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable
 
     public void StartMoving()
     {
-        IsMoving = true;
-        if (!HasMoved)
+        if (!UsedMovement)
         {
-            // roll a die for movement
-            MovesRemaining = Random.Range(1, 7);
+            IsMoving = true;
             // create empty move queue
             QueuedMoves = new Queue<IEnumerator>();
         }
@@ -51,7 +57,6 @@ public class Character : MonoBehaviour, ISelectable, IMovable
     public void StopMoving()
     {
         IsMoving = false;
-        QueuedMoves = null;
     }
 
     private void Update()
@@ -96,13 +101,21 @@ public class Character : MonoBehaviour, ISelectable, IMovable
             }
             else
             {
-                HasMoved = true;
+                UsedMovement = true;
+                IsMoving = false;
             }
         }
 
+        // work through the queue if it is not empty and another action is not occuring
         if (QueuedMoves != null && QueuedMoves.Count > 0 && ActiveMovementRoutine == null)
         {
             ActiveMovementRoutine = StartCoroutine(QueuedMoves.Dequeue());
+        }
+
+        // remove the queue when all actions have been completed and movement has stopped
+        if (QueuedMoves != null && !IsMoving && QueuedMoves.Count == 0)
+        {
+            QueuedMoves = null;
         }
     }
 
@@ -122,6 +135,21 @@ public class Character : MonoBehaviour, ISelectable, IMovable
 
     public string GetDetails()
     {
-        return $"{gameObject.name}\nHealth: N/A\n{(IsMoving ? $"Moves: {MovesRemaining}" : (HasMoved ? "Unable to move" : "Able to move"))}";
+        return $"{gameObject.name}\nHealth: N/A\nMoves: {MovesRemaining}";
+    }
+
+    public int GetX()
+    {
+        return X;
+    }
+
+    public int GetY()
+    {
+        return Y;
+    }
+
+    public bool CheckIsMoving()
+    {
+        return IsMoving;
     }
 }

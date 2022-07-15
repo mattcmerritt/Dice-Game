@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     // [SerializeField] private int MinX, MaxX, MinY, MaxY;
 
     // cursor data
-    private int CursorX, CursorY;
+    [SerializeField] private int CursorX, CursorY;
     [SerializeField] private GameObject Cursor;
     private Coroutine MovementRoutine;
     [SerializeField, Range(0f, 0.5f)] private float MoveDuration;
@@ -21,48 +21,54 @@ public class InputManager : MonoBehaviour
     [SerializeField] private TMP_Text DetailsBox;
     [SerializeField] private Image Portrait;
 
+    // movement data
+    private bool CurrentlyMoving;
+
     private void Update()
     {
         // cursor movement
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Cursor.activeSelf)
         {
-            CursorX++;
-
-            if (MovementRoutine != null)
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                StopCoroutine(MovementRoutine);
-            }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            CursorX--;
+                CursorX++;
 
-            if (MovementRoutine != null)
-            {
-                StopCoroutine(MovementRoutine);
+                if (MovementRoutine != null)
+                {
+                    StopCoroutine(MovementRoutine);
+                }
+                MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            CursorY++;
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                CursorX--;
 
-            if (MovementRoutine != null)
-            {
-                StopCoroutine(MovementRoutine);
+                if (MovementRoutine != null)
+                {
+                    StopCoroutine(MovementRoutine);
+                }
+                MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            CursorY--;
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                CursorY++;
 
-            if (MovementRoutine != null)
-            {
-                StopCoroutine(MovementRoutine);
+                if (MovementRoutine != null)
+                {
+                    StopCoroutine(MovementRoutine);
+                }
+                MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                CursorY--;
+
+                if (MovementRoutine != null)
+                {
+                    StopCoroutine(MovementRoutine);
+                }
+                MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
+            }
         }
 
         // selection
@@ -78,9 +84,9 @@ public class InputManager : MonoBehaviour
 
                     DetailsPanel.SetActive(false);
                 }
-                else if (hit.GetComponent<Character>() != null)
+                else if (hit.GetComponent<ISelectable>() != null)
                 {
-                    hit.GetComponent<Character>().Select();
+                    hit.GetComponent<ISelectable>().Select();
                     SelectedObject = hit.gameObject;
 
                     Debug.Log($"Selected {SelectedObject.name}");
@@ -94,6 +100,7 @@ public class InputManager : MonoBehaviour
             }
             else
             {
+                SelectedObject.GetComponent<ISelectable>().Deselect();
                 SelectedObject = null;
                 Debug.Log("Deselected");
 
@@ -106,8 +113,28 @@ public class InputManager : MonoBehaviour
         {
             if (SelectedObject.GetComponent<Character>() != null)
             {
-                SelectedObject.GetComponent<Character>().StartMoving();
-            }
+                if (!CurrentlyMoving)
+                {
+                    SelectedObject.GetComponent<Character>().StartMoving();
+                    CurrentlyMoving = true;
+                    Cursor.SetActive(false);
+                }
+                else
+                {
+                    SelectedObject.GetComponent<Character>().StopMoving();
+                    CurrentlyMoving = false;
+                    Cursor.transform.position = new Vector3(CursorX = SelectedObject.GetComponent<Character>().GetX(), CursorY = SelectedObject.GetComponent<Character>().GetY(), SelectedObject.transform.position.z);
+                    Cursor.SetActive(true);
+                }
+            } 
+        }
+        // extra movement check
+        if (CurrentlyMoving && !SelectedObject.GetComponent<Character>().CheckIsMoving())
+        {
+            SelectedObject.GetComponent<Character>().StopMoving();
+            CurrentlyMoving = false;
+            Cursor.transform.position = new Vector3(CursorX = SelectedObject.GetComponent<Character>().GetX(), CursorY = SelectedObject.GetComponent<Character>().GetY(), SelectedObject.transform.position.z);
+            Cursor.SetActive(true);
         }
 
         // UI
