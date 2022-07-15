@@ -3097,16 +3097,7 @@ MonoBehaviour:
   MinY: 0
   MaxY: 0
   Cursor: {fileID: 231707511}
-  Right: {fileID: 6266037679575777309, guid: c901e43411327154083921f375239428, type: 3}
-  Left: {fileID: 2563077855592370281, guid: 5ce40f0d85d76764ab3c4bbed49e659f, type: 3}
-  Up: {fileID: 4267965159379322574, guid: 096d7079754f3444ebdabd0ce57d5262, type: 3}
-  Down: {fileID: 7134623509271819750, guid: 5a860ef310e1c68498d2833f336757e3, type: 3}
-  RL: {fileID: 3114057141616292107, guid: a5482752e91580642a866a48be214486, type: 3}
-  UD: {fileID: 1996112493895406395, guid: 33471a069ffec2c499312f7fb1377d0b, type: 3}
-  UR: {fileID: 6685227193101623349, guid: f35d648f601689e46980957349fdd702, type: 3}
-  UL: {fileID: 7906193176410533167, guid: f3540d794f9e6d44cb2fd254cd73c4a7, type: 3}
-  DR: {fileID: 6703499595521581544, guid: 9c1baab5a2aee3a4b85f74e220645770, type: 3}
-  DL: {fileID: 5797272272418697782, guid: 2b950e078cfefe646a3eeb9ea93c925e, type: 3}
+  MoveDuration: 0.15
 --- !u!4 &1716198415
 Transform:
   m_ObjectHideFlags: 0
