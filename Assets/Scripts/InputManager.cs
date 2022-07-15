@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     // stage bounds for cursor
-    [SerializeField] private int MinX, MaxX, MinY, MaxY;
+    // [SerializeField] private int MinX, MaxX, MinY, MaxY;
 
     // cursor data
     private int CursorX, CursorY;
@@ -13,51 +13,89 @@ public class InputManager : MonoBehaviour
     private Coroutine MovementRoutine;
     [SerializeField, Range(0f, 0.5f)] private float MoveDuration;
 
+    // selection data
+    [SerializeField] private GameObject SelectedObject;
+
     private void Update()
     {
+        // cursor movement
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Debug.Log("Moving Right");
             CursorX++;
 
             if (MovementRoutine != null)
             {
                 StopCoroutine(MovementRoutine);
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, Vector3.right * CursorX + Vector3.up * CursorY + Vector3.forward * Cursor.transform.position.z, MoveDuration));
+            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("Moving Left");
             CursorX--;
 
             if (MovementRoutine != null)
             {
                 StopCoroutine(MovementRoutine);
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, Vector3.right * CursorX + Vector3.up * CursorY + Vector3.forward * Cursor.transform.position.z, MoveDuration));
+            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Moving Up");
             CursorY++;
 
             if (MovementRoutine != null)
             {
                 StopCoroutine(MovementRoutine);
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, Vector3.right * CursorX + Vector3.up * CursorY + Vector3.forward * Cursor.transform.position.z, MoveDuration));
+            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("Moving Down");
             CursorY--;
 
             if (MovementRoutine != null)
             {
                 StopCoroutine(MovementRoutine);
             }
-            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, Vector3.right * CursorX + Vector3.up * CursorY + Vector3.forward * Cursor.transform.position.z, MoveDuration));
+            MovementRoutine = StartCoroutine(Lerp(Cursor.transform.position, new Vector3(CursorX, CursorY, transform.position.z), MoveDuration));
+        }
+
+        // selection
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (SelectedObject == null)
+            {
+                Collider2D hit = Physics2D.OverlapPoint(new Vector2(CursorX, CursorY));
+                if (hit == null)
+                {
+                    SelectedObject = null;
+                }
+                else if (hit.GetComponent<Character>() != null)
+                {
+                    hit.GetComponent<Character>().Select();
+                    SelectedObject = hit.gameObject;
+
+                    Debug.Log($"Selected {SelectedObject.name}");
+                }
+                else
+                {
+                    Debug.LogWarning($"Unimplemented selection occured when attempting to select {hit.name}.");
+                }
+            }
+            else
+            {
+                SelectedObject = null;
+                Debug.Log("Deselected");
+            } 
+        }
+
+        // character movement
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (SelectedObject.GetComponent<Character>() != null)
+            {
+                SelectedObject.GetComponent<Character>().StartMoving();
+            }
         }
     }
 
