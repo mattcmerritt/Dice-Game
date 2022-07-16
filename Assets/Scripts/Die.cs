@@ -9,6 +9,8 @@ public class Die : MonoBehaviour
     private bool isRolling;
     private int RollValue;
 
+    private Character AssociatedPlayer;
+
     private void Start()
     {
         isRolling = true;
@@ -26,7 +28,7 @@ public class Die : MonoBehaviour
                 Mathf.RoundToInt(transform.eulerAngles.z / 90f)
             ) * 90f;
 
-            Debug.Log($"Rotation {targetRotation}");
+            // Debug.Log($"Rotation {targetRotation}");
 
             StartCoroutine(Lerp(targetRotation, 0.1f));
         }
@@ -59,6 +61,26 @@ public class Die : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position - 10f * Vector3.forward, Vector3.forward);
         RollValue = int.Parse(hit.collider.name);
 
-        Debug.Log($"Rolled {RollValue}");
+        // Debug.Log($"Rolled {RollValue}");
+        float delayElapsed = 0f;
+
+        while (delayElapsed < 0.5f)
+        {
+            delayElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        AssociatedPlayer.SetRoll(RollValue);
+        gameObject.SetActive(false);
+    }
+
+    public void SetPlayer(Character ch)
+    {
+        AssociatedPlayer = ch;
+    }
+
+    public void StartRolling()
+    {
+        isRolling = true;
     }
 }

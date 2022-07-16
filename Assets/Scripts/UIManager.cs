@@ -14,6 +14,11 @@ public class UIManager : MonoBehaviour
     // cursor
     [SerializeField] private GameObject Cursor;
 
+    // turn UI
+    [SerializeField] private GameObject TurnBanner;
+    [SerializeField] private TMP_Text TurnText;
+    [SerializeField] private GameObject EndTurn;
+
     public void SelectCharacter(GameObject selected)
     {
         DetailsPanel.SetActive(true);
@@ -29,5 +34,17 @@ public class UIManager : MonoBehaviour
     public void DeselectCharacter()
     {
         DetailsPanel.SetActive(false);
+    }
+
+    public void StartPlayerTurn()
+    {
+        TurnBanner.SetActive(true);
+        TurnText.SetText("Player Turn");
+    }
+
+    public void StartEnemyTurn()
+    {
+        TurnBanner.SetActive(true);
+        TurnText.SetText("Enemy Turn");
     }
 }

@@ -17,18 +17,26 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     private Queue<IEnumerator> QueuedMoves;
     [SerializeField, Range(0f, 0.5f)] private float MoveDuration;
 
+    // die information
+    [SerializeField] private GameObject Die;
+    [SerializeField] private Die DieScript;
+
     public void Start()
     {
         X = (int) transform.position.x;
         Y = (int) transform.position.y;
 
-        StartTurn();
+        DieScript = Die.GetComponent<Die>();
+        DieScript.SetPlayer(this);
     }
 
     public void StartTurn()
     {
         // roll a die
-        MovesRemaining = Random.Range(1, 7);
+        Die.SetActive(true);
+        DieScript.StartRolling();
+
+        UsedMovement = false;
     }
 
     public void Select()
@@ -215,5 +223,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public virtual int GenerateAttackDamage()
     {
         return 0; // should be overwritten
+    }
+
+    public void SetRoll(int roll)
+    {
+        MovesRemaining = roll;
     }
 }
