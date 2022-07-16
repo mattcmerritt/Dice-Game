@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour, IUnstackable
     private int MovesRemaining;
     private Coroutine ActiveCoroutine;
 
+    private bool isRolling;
+
     private void Start()
     {
         Die.GetComponent<Die>().SetParentEnemy(this);
@@ -61,16 +63,22 @@ public class Enemy : MonoBehaviour, IUnstackable
 
     public void TakeTurn()
     {
+        Die.SetActive(true);
         ActiveCoroutine = StartCoroutine(RollDie());
     }
 
     IEnumerator RollDie()
     {
-        Die.SetActive(true);
+        
         Die.GetComponent<Die>().StartRolling();
+        isRolling = true;
         yield return new WaitForSeconds(4);
-        Die.GetComponent<Die>().StopRolling();
-        StopCoroutine(ActiveCoroutine);
+        if (isRolling)
+        {
+            isRolling = false;
+            StopCoroutine(ActiveCoroutine);
+            Die.GetComponent<Die>().StopRolling();
+        }
     }
 
     IEnumerator PerformAttacks()
