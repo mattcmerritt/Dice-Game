@@ -26,7 +26,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        // cursor movement
+        // OUTDATED cursor movement
+        /*
         if (Cursor.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.D))
@@ -134,6 +135,8 @@ public class InputManager : MonoBehaviour
                 }
             } 
         }
+        */
+
         // extra movement check
         if (CurrentlyMoving && !SelectedObject.GetComponent<Character>().CheckIsMoving())
         {

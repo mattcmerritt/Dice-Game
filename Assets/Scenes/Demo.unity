@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &231707512
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -575,6 +575,10 @@ MonoBehaviour:
   DieScript: {fileID: 0}
   Ani: {fileID: 0}
   AnimationClipPrefix: 
+  Left: {fileID: 6023296722499351811, guid: 4c7fd59a70b069b4cac110fb7b5596c5, type: 3}
+  Right: {fileID: 334817354664759435, guid: 8e841aa40d8bb8245b250aa586431922, type: 3}
+  Up: {fileID: 5852284104570415147, guid: aced844ec1a2f1046b5ddf29a58da744, type: 3}
+  Down: {fileID: 6644835530116944884, guid: 32beefa97df6d9b4b8412ca1c3ab4a79, type: 3}
   AttackIndicator: {fileID: 6885928568262029007, guid: 6cf79dd927c4cb6478999c99382e3be3, type: 3}
 --- !u!212 &905656101
 SpriteRenderer:
@@ -4192,6 +4196,10 @@ MonoBehaviour:
   DieScript: {fileID: 0}
   Ani: {fileID: 7123296314092172631}
   AnimationClipPrefix: Ranger
+  Left: {fileID: 6023296722499351811, guid: 4c7fd59a70b069b4cac110fb7b5596c5, type: 3}
+  Right: {fileID: 334817354664759435, guid: 8e841aa40d8bb8245b250aa586431922, type: 3}
+  Up: {fileID: 5852284104570415147, guid: aced844ec1a2f1046b5ddf29a58da744, type: 3}
+  Down: {fileID: 6644835530116944884, guid: 32beefa97df6d9b4b8412ca1c3ab4a79, type: 3}
   AttackIndicator: {fileID: 6885928568262029007, guid: 6cf79dd927c4cb6478999c99382e3be3, type: 3}
 --- !u!95 &7123296314092172631
 Animator:

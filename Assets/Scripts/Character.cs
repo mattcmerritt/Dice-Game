@@ -25,6 +25,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     [SerializeField] private Animator Ani;
     [SerializeField] private string AnimationClipPrefix;
 
+    // movement indicators
+    [SerializeField] private GameObject Left, Right, Up, Down;
+
     public void Start()
     {
         X = (int) transform.position.x;
@@ -47,11 +50,22 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     {
         IsSelected = true;
         GameObject.FindObjectOfType<UIManager>().SelectCharacter(gameObject);
+
+        // activate movement indicators
+        CreateMovementIndicators();
+        StartMoving();
     }
 
     public void Deselect()
     {
         IsSelected = false;
+
+        // destroy movement indicators
+        MovementIndicator[] moveIndicators = FindObjectsOfType<MovementIndicator>();
+        foreach (MovementIndicator m in moveIndicators)
+        {
+            Destroy(m.gameObject);
+        }
     }
 
     public void StartMoving()
@@ -92,50 +106,25 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         {
             if (MovesRemaining > 0)
             {
+                // OUTDATED KEYBOARD CONTROLS
+                /*
                 if (Input.GetKeyDown(KeyCode.D))
                 {
-                    if(CheckIfValidMove(X + 1, Y))
-                    {
-                        // player moves right
-                        MovesRemaining--;
-
-                        X++;
-                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
-                    }
+                    EnqueueMove("Right");
                 }
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    if (CheckIfValidMove(X - 1, Y))
-                    {
-                        // player moves left
-                        MovesRemaining--;
-
-                        X--;
-                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
-                    }
+                    EnqueueMove("Left");
                 }
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    if (CheckIfValidMove(X, Y + 1))
-                    {
-                        // player moves up
-                        MovesRemaining--;
-
-                        Y++;
-                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
-                    }
+                    EnqueueMove("Up");
                 }
                 if (Input.GetKeyDown(KeyCode.S))
                 {
-                    if (CheckIfValidMove(X, Y - 1))
-                    {
-                        // player moves down
-                        MovesRemaining--;
-
-                        Y--;
-                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
-                    }
+                    EnqueueMove("Down");
                 }
+                */
             }
             else
             {
@@ -166,9 +155,17 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             Destroy(i.gameObject);
         }
 
+        // destroy movement indicators
+        MovementIndicator[] moveIndicators = FindObjectsOfType<MovementIndicator>();
+        foreach (MovementIndicator m in moveIndicators)
+        {
+            Destroy(m.gameObject);
+        }
+
         Vector3 start = transform.position;
         float elapsedTime = 0f;
 
+        // playing walk animations
         if (Ani != null)
         {
             if (target.x > start.x)
@@ -188,11 +185,15 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             yield return null;
         }
 
+        // returning to the idle state
         if (Ani != null)
         {
             Ani.Play(AnimationClipPrefix + "Idle");
         }
         ActiveMovementRoutine = null;
+
+        // adding new movement UI
+        CreateMovementIndicators();
     }
 
     public string GetDetails()
@@ -249,5 +250,72 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void SetRoll(int roll)
     {
         MovesRemaining = roll;
+    }
+
+    public void EnqueueMove(string direction)
+    {
+        if (direction.Contains("Up"))
+        {
+            if (CheckIfValidMove(X, Y + 1))
+            {
+                // player moves right
+                MovesRemaining--;
+                Y++;
+                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+            }
+        }
+        if (direction.Contains("Down"))
+        {
+            if (CheckIfValidMove(X, Y - 1))
+            {
+                // player moves right
+                MovesRemaining--;
+                Y--;
+                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+            }
+        }
+        if (direction.Contains("Left"))
+        {
+            if (CheckIfValidMove(X - 1, Y))
+            {
+                // player moves right
+                MovesRemaining--;
+                X--;
+                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+            }
+        }
+        if (direction.Contains("Right"))
+        {
+            if (CheckIfValidMove(X + 1, Y))
+            {
+                // player moves right
+                MovesRemaining--;
+                X++;
+                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+            }
+        }
+    }
+
+    private void CreateMovementIndicators()
+    {
+        if (MovesRemaining > 0)
+        {
+            if (CheckIfValidMove(X - 1, Y))
+            {
+                Instantiate(Left, transform.position + Vector3.left, Quaternion.identity);
+            }
+            if (CheckIfValidMove(X + 1, Y))
+            {
+                Instantiate(Right, transform.position + Vector3.right, Quaternion.identity);
+            }
+            if (CheckIfValidMove(X, Y + 1))
+            {
+                Instantiate(Up, transform.position + Vector3.up, Quaternion.identity);
+            }
+            if (CheckIfValidMove(X, Y - 1))
+            {
+                Instantiate(Down, transform.position + Vector3.down, Quaternion.identity);
+            }
+        }
     }
 }
