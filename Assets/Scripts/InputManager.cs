@@ -100,6 +100,12 @@ public class InputManager : MonoBehaviour
             }
             else
             {
+                // respawn cursor
+                SelectedObject.GetComponent<Character>().StopMoving();
+                CurrentlyMoving = false;
+                Cursor.transform.position = new Vector3(CursorX = SelectedObject.GetComponent<Character>().GetX(), CursorY = SelectedObject.GetComponent<Character>().GetY(), SelectedObject.transform.position.z);
+                Cursor.SetActive(true);
+
                 SelectedObject.GetComponent<ISelectable>().Deselect();
                 SelectedObject = null;
                 Debug.Log("Deselected");
@@ -154,6 +160,11 @@ public class InputManager : MonoBehaviour
             Cursor.transform.position = Vector3.Lerp(position, target, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+        if (elapsedTime >= duration)
+        {
+            // fixes misalignment buildup after cursor movement is done
+            Cursor.transform.position = new Vector3(Mathf.RoundToInt(Cursor.transform.position.x), Mathf.RoundToInt(Cursor.transform.position.y), Cursor.transform.position.z);
         }
     }
 

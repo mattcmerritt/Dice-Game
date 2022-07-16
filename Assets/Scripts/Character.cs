@@ -9,7 +9,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     [SerializeField] protected bool IsSelected;
     [SerializeField] protected bool IsMoving;
     private bool UsedMovement;
-    [SerializeField] protected int MovesRemaining;
+    [SerializeField] public int MovesRemaining;
     protected int X, Y;
 
     // coroutines for movement

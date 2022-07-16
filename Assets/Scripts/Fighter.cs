@@ -23,7 +23,8 @@ public class Fighter : Character
                     {
                         if(enemy.GetComponentInChildren<AttackIndicator>() == null)
                         {
-                            Instantiate(AttackIndicator, enemy.transform);
+                            GameObject attack = Instantiate(AttackIndicator, enemy.transform);
+                            attack.GetComponent<AttackIndicator>().MovementCost = 1;
                         }
                     }
                 }
