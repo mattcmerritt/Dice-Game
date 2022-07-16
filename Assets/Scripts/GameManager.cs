@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
         if (!IsPlayerTurn)
         {
             GameObject.FindObjectOfType<UIManager>().StartEnemyTurn();
+
+            Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+            foreach(Enemy enemy in enemies)
+            {
+                enemy.TakeTurn();
+            }
         }
 
         // switching turns

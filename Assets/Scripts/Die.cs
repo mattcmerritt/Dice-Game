@@ -10,6 +10,7 @@ public class Die : MonoBehaviour
     private int RollValue;
 
     private Character AssociatedPlayer;
+    private Enemy AssociatedEnemy;
 
     private void Start()
     {
@@ -70,7 +71,15 @@ public class Die : MonoBehaviour
             yield return null;
         }
 
-        AssociatedPlayer.SetRoll(RollValue);
+        if(AssociatedPlayer != null)
+        {
+            AssociatedPlayer.SetRoll(RollValue);
+        }
+        else
+        {
+            AssociatedEnemy.SetRoll(RollValue);
+        }
+        
         gameObject.SetActive(false);
     }
 
@@ -82,5 +91,25 @@ public class Die : MonoBehaviour
     public void StartRolling()
     {
         isRolling = true;
+    }
+
+    public void SetParentEnemy(Enemy e)
+    {
+        AssociatedEnemy = e;
+    }
+
+    public void StopRolling()
+    {
+        isRolling = false;
+
+        Vector3 targetRotation = new Vector3(
+            Mathf.RoundToInt(transform.eulerAngles.x / 90f),
+            Mathf.RoundToInt(transform.eulerAngles.y / 90f),
+            Mathf.RoundToInt(transform.eulerAngles.z / 90f)
+        ) * 90f;
+
+        // Debug.Log($"Rotation {targetRotation}");
+
+        StartCoroutine(Lerp(targetRotation, 0.1f));
     }
 }

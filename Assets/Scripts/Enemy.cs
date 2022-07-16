@@ -7,6 +7,16 @@ public class Enemy : MonoBehaviour, IUnstackable
 {
     [SerializeField] private int Health;
 
+    [SerializeField] private GameObject Die;
+    private int RollValue;
+    private int MovesRemaining;
+    private Coroutine ActiveCoroutine;
+
+    private void Start()
+    {
+        Die.GetComponent<Die>().SetParentEnemy(this);
+    }
+
     public void TakeDamage(int damage)
     {
         Debug.Log(name + " took " + damage + " damage!");
@@ -41,5 +51,57 @@ public class Enemy : MonoBehaviour, IUnstackable
 
         // else nothing blocks so valid move
         return true;
+    }
+
+    public void SetRoll(int roll)
+    {
+        RollValue = roll;
+        MovesRemaining = roll;
+    }
+
+    public void TakeTurn()
+    {
+        ActiveCoroutine = StartCoroutine(RollDie());
+    }
+
+    IEnumerator RollDie()
+    {
+        Die.SetActive(true);
+        Die.GetComponent<Die>().StartRolling();
+        yield return new WaitForSeconds(4);
+        Die.GetComponent<Die>().StopRolling();
+        StopCoroutine(ActiveCoroutine);
+    }
+
+    IEnumerator PerformAttacks()
+    {
+        bool NoViableAttacks = false;
+        while (MovesRemaining > 0 && !NoViableAttacks)
+        {
+            NoViableAttacks = true;
+            Character[] players = FindObjectsOfType<Character>();
+            foreach (Character player in players)
+            {
+                if (Mathf.Abs(player.transform.position.x - transform.position.x) - MovesRemaining < 0.1 && Mathf.RoundToInt(player.transform.position.y) == transform.position.y)
+                {
+                    if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) <= MovesRemaining)
+                    {
+                        // do attack
+                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x));
+                        NoViableAttacks = false;
+                    }
+                }
+                if (Mathf.Abs(player.transform.position.y - transform.position.y) - MovesRemaining < 0.1 && Mathf.RoundToInt(player.transform.position.x) == transform.position.x)
+                {
+                    if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) <= MovesRemaining)
+                    {
+                        // do attack
+                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y));
+                        NoViableAttacks = false;
+                    }
+                }
+            }
+        }
+        yield return null;
     }
 }
