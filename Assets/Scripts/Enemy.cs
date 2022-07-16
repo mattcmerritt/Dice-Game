@@ -5,9 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour, IUnstackable
 {
+    [SerializeField] private int Health;
+
     public void TakeDamage(int damage)
     {
         Debug.Log(name + " took " + damage + " damage!");
+        Health -= damage;
+        if (Health < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public bool CheckIfValidMove(int x, int y)
