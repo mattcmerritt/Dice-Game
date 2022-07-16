@@ -140,10 +140,12 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         }
 
         // remove the queue when all actions have been completed and movement has stopped
+        /*
         if (QueuedMoves != null && !IsMoving && QueuedMoves.Count == 0)
         {
             QueuedMoves = null;
         }
+        */
     }
 
     IEnumerator Lerp(Vector3 target, float duration)
@@ -250,6 +252,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void SetRoll(int roll)
     {
         MovesRemaining = roll;
+        if (IsSelected)
+        {
+            CreateMovementIndicators();
+        }
     }
 
     public void EnqueueMove(string direction)

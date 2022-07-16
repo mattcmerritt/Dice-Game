@@ -21,7 +21,6 @@ public class MovementIndicator : MonoBehaviour
             if (hit.collider.gameObject == gameObject)
             {
                 InputManager.SelectedObject.GetComponent<Character>().EnqueueMove(hit.collider.name);
-                Debug.Log(hit.collider.name);
             }
         }
     }
