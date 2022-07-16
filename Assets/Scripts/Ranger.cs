@@ -20,7 +20,6 @@ public class Ranger : Character
                 {
                     if (Mathf.Abs(enemy.transform.position.x - X) - MovesRemaining < 0.1 && Mathf.RoundToInt(enemy.transform.position.y) == Y)
                     {
-                        Debug.Log("Horiz attack");
                         if (enemy.GetComponentInChildren<AttackIndicator>() == null)
                         {
                             GameObject attack = Instantiate(AttackIndicator, enemy.transform);
@@ -30,7 +29,6 @@ public class Ranger : Character
                     }
                     if (Mathf.Abs(enemy.transform.position.y - Y) - MovesRemaining < 0.1 && Mathf.RoundToInt(enemy.transform.position.x) == X)
                     {
-                        Debug.Log("Vert attack");
                         if (enemy.GetComponentInChildren<AttackIndicator>() == null)
                         {
                             GameObject attack = Instantiate(AttackIndicator, enemy.transform);
