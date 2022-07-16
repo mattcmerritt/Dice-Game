@@ -7,13 +7,13 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 {
     // instance data
     [SerializeField] protected bool IsSelected;
-    [SerializeField] private bool IsMoving;
+    [SerializeField] protected bool IsMoving;
     private bool UsedMovement;
     [SerializeField] protected int MovesRemaining;
-    private int X, Y;
+    protected int X, Y;
 
     // coroutines for movement
-    private Coroutine ActiveMovementRoutine;
+    protected Coroutine ActiveMovementRoutine;
     private Queue<IEnumerator> QueuedMoves;
     [SerializeField, Range(0f, 0.5f)] private float MoveDuration;
 
@@ -134,6 +134,13 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
     IEnumerator Lerp(Vector3 target, float duration)
     {
+        // destroy attack indicators before starting move
+        AttackIndicator[] indicators = FindObjectsOfType<AttackIndicator>();
+        foreach (AttackIndicator i in indicators)
+        {
+            Destroy(i.gameObject);
+        }
+
         Vector3 start = transform.position;
         float elapsedTime = 0f;
         while (elapsedTime < duration)
@@ -171,7 +178,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         // gather all objects with interface IUnstackable by looking through all root objects
         List<GameObject> unstackables = new List<GameObject>();
         GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach(var root in rootObjects)
+        foreach(GameObject root in rootObjects)
         {
             if (root.GetComponentInChildren<IUnstackable>() != null)
             {
@@ -179,10 +186,8 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             }
         }
 
-        Debug.Log(unstackables.Count);
-
         // check move against all objects with IUnstackable
-        foreach(var unstackable in unstackables)
+        foreach(GameObject unstackable in unstackables)
         {
             if(Mathf.Abs(unstackable.transform.position.x - x) < 0.1f && Mathf.Abs(unstackable.transform.position.y - y) < 0.1f)
             {
