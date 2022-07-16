@@ -34,6 +34,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void Select()
     {
         IsSelected = true;
+        GameObject.FindObjectOfType<UIManager>().SelectCharacter(gameObject);
     }
 
     public void Deselect()
@@ -58,6 +59,18 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void StopMoving()
     {
         IsMoving = false;
+    }
+
+    private void OnMouseDown()
+    {
+        // Deselect other characters in scene
+        Character[] chars = GameObject.FindObjectsOfType<Character>();
+        foreach (Character ch in chars)
+        {
+            ch.Deselect();
+        }
+
+        Select();
     }
 
     protected virtual void Update()
