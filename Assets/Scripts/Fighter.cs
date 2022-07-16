@@ -30,4 +30,9 @@ public class Fighter : Character
             }
         }
     }
+
+    public override int GenerateAttackDamage()
+    {
+        return Random.Range(8, 13);
+    }
 }

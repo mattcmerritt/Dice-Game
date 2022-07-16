@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
     [SerializeField, Range(0f, 0.5f)] private float MoveDuration;
 
     // selection data
-    [SerializeField] private GameObject SelectedObject;
+    [SerializeField] public GameObject SelectedObject;
     [SerializeField] private GameObject DetailsPanel;
     [SerializeField] private TMP_Text DetailsBox;
     [SerializeField] private Image Portrait;

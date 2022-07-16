@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class AttackIndicator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private InputManager Inputs;
+    private GameObject Parent;
+
+    private void Start()
     {
-        
+        Parent = transform.parent.gameObject;
+        Inputs = FindObjectOfType<InputManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        
+        Parent.GetComponent<Enemy>().TakeDamage(Inputs.SelectedObject.GetComponent<Character>().GenerateAttackDamage());
     }
 }

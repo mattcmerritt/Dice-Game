@@ -211,4 +211,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         // else nothing blocks so valid move
         return true;
     }
+
+    public virtual int GenerateAttackDamage()
+    {
+        return 0; // should be overwritten
+    }
 }
