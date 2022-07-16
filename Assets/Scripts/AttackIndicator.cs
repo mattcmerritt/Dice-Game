@@ -19,9 +19,9 @@ public class AttackIndicator : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition - 10f * Vector3.forward, mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector3.forward);
 
-            if (hit.collider.gameObject == gameObject)
+            if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
                 Parent.GetComponent<Enemy>().TakeDamage(Inputs.SelectedObject.GetComponent<Character>().GenerateAttackDamage());
                 Inputs.SelectedObject.GetComponent<Character>().MovesRemaining -= MovementCost;
@@ -31,6 +31,16 @@ public class AttackIndicator : MonoBehaviour
                 foreach (AttackIndicator i in indicators)
                 {
                     Destroy(i.gameObject);
+                }
+
+                if (Inputs.SelectedObject.GetComponent<Character>().MovesRemaining <= 0)
+                {
+                    // destroy movement indicators
+                    MovementIndicator[] moveIndicators = FindObjectsOfType<MovementIndicator>();
+                    foreach (MovementIndicator m in moveIndicators)
+                    {
+                        Destroy(m.gameObject);
+                    }
                 }
             }
         }
