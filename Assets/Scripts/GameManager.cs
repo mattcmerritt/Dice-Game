@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool IsPlayerTurn;
-    private bool PlayerTurnStarted;
+    private bool PlayerTurnStarted, EnemyTurnStarted;
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
             PlayerTurnStarted = true;
         }
         // enemy turn, implement later
-        if (!IsPlayerTurn)
+        if (!IsPlayerTurn && !EnemyTurnStarted)
         {
             GameObject.FindObjectOfType<UIManager>().StartEnemyTurn();
 
@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
             {
                 enemy.TakeTurn();
             }
+
+            EnemyTurnStarted = true;
         }
 
         // switching turns
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
             if (IsPlayerTurn)
             {
                 IsPlayerTurn = false;
+                EnemyTurnStarted = false;
             }
             else
             {
