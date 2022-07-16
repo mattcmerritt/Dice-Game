@@ -21,6 +21,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     [SerializeField] private GameObject Die;
     [SerializeField] private Die DieScript;
 
+    // animator
+    [SerializeField] private Animator Ani;
+    [SerializeField] private string AnimationClipPrefix;
+
     public void Start()
     {
         X = (int) transform.position.x;
@@ -164,6 +168,19 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
         Vector3 start = transform.position;
         float elapsedTime = 0f;
+
+        if (Ani != null)
+        {
+            if (target.x > start.x)
+            {
+                Ani.Play(AnimationClipPrefix + "WalkRight");
+            }
+            else
+            {
+                Ani.Play(AnimationClipPrefix + "WalkLeft");
+            }
+        }
+
         while (elapsedTime < duration)
         {
             transform.position = Vector3.Lerp(start, target, elapsedTime / duration);
@@ -171,6 +188,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             yield return null;
         }
 
+        if (Ani != null)
+        {
+            Ani.Play(AnimationClipPrefix + "Idle");
+        }
         ActiveMovementRoutine = null;
     }
 
