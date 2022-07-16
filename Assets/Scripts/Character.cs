@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 {
@@ -28,6 +29,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     // movement indicators
     [SerializeField] private GameObject Left, Right, Up, Down;
 
+    // tilemaps
+    [SerializeField] private Tilemap Floor;
+
     public void Start()
     {
         X = (int) transform.position.x;
@@ -35,6 +39,8 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
         DieScript = Die.GetComponent<Die>();
         DieScript.SetPlayer(this);
+
+        Floor = GameObject.Find("Floor").GetComponent<Tilemap>();
     }
 
     public void StartTurn()
@@ -238,6 +244,12 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             {
                 return false;
             }
+        }
+
+        // check for valid floor tile
+        if (Floor.GetTile(new Vector3Int(x, y, 0)) == null)
+        {
+            return false;
         }
 
         // else nothing blocks so valid move
