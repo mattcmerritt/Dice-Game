@@ -140,6 +140,7 @@ public class InputManager : MonoBehaviour
         // UI
         if (DetailsPanel.activeSelf)
         {
+            
             DetailsBox.SetText(SelectedObject.GetComponent<ISelectable>().GetDetails());
             Portrait.sprite = SelectedObject.GetComponent<SpriteRenderer>().sprite;
         }
@@ -154,5 +155,12 @@ public class InputManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void ChangeSelected(GameObject selected)
+    {
+        SelectedObject = selected;
+        CursorX = Mathf.RoundToInt(selected.transform.position.x);
+        CursorY = Mathf.RoundToInt(selected.transform.position.y);
     }
 }
