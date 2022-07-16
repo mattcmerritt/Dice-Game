@@ -14,6 +14,29 @@ public class AttackIndicator : MonoBehaviour
         Inputs = FindObjectOfType<InputManager>();
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition - 10f * Vector3.forward, mousePosition);
+
+            if (hit.collider.gameObject == gameObject)
+            {
+                Parent.GetComponent<Enemy>().TakeDamage(Inputs.SelectedObject.GetComponent<Character>().GenerateAttackDamage());
+                Inputs.SelectedObject.GetComponent<Character>().MovesRemaining -= MovementCost;
+
+                // destroy attack indicators before starting move
+                AttackIndicator[] indicators = FindObjectsOfType<AttackIndicator>();
+                foreach (AttackIndicator i in indicators)
+                {
+                    Destroy(i.gameObject);
+                }
+            }
+        }
+    }
+
+    /*
     private void OnMouseDown()
     {
         Parent.GetComponent<Enemy>().TakeDamage(Inputs.SelectedObject.GetComponent<Character>().GenerateAttackDamage());
@@ -26,4 +49,5 @@ public class AttackIndicator : MonoBehaviour
             Destroy(i.gameObject);
         }
     }
+    */
 }
