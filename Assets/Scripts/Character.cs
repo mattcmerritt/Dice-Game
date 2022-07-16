@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Character : MonoBehaviour, ISelectable, IMovable
+public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 {
     // instance data
-    [SerializeField] private bool IsSelected;
+    [SerializeField] protected bool IsSelected;
     [SerializeField] private bool IsMoving;
     private bool UsedMovement;
-    [SerializeField] private int MovesRemaining;
+    [SerializeField] protected int MovesRemaining;
     private int X, Y;
 
     // coroutines for movement
@@ -59,7 +60,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable
         IsMoving = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         // Queueing Movement
         if (IsSelected && IsMoving)
@@ -68,35 +69,47 @@ public class Character : MonoBehaviour, ISelectable, IMovable
             {
                 if (Input.GetKeyDown(KeyCode.D))
                 {
-                    // player moves right
-                    MovesRemaining--;
+                    if(CheckIfValidMove(X + 1, Y))
+                    {
+                        // player moves right
+                        MovesRemaining--;
 
-                    X++;
-                    QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                        X++;
+                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                    }
                 }
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    // player moves left
-                    MovesRemaining--;
+                    if (CheckIfValidMove(X - 1, Y))
+                    {
+                        // player moves left
+                        MovesRemaining--;
 
-                    X--;
-                    QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                        X--;
+                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                    }
                 }
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    // player moves up
-                    MovesRemaining--;
+                    if (CheckIfValidMove(X, Y + 1))
+                    {
+                        // player moves up
+                        MovesRemaining--;
 
-                    Y++;
-                    QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                        Y++;
+                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                    }
                 }
                 if (Input.GetKeyDown(KeyCode.S))
                 {
-                    // player moves down
-                    MovesRemaining--;
+                    if (CheckIfValidMove(X, Y - 1))
+                    {
+                        // player moves down
+                        MovesRemaining--;
 
-                    Y--;
-                    QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                        Y--;
+                        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+                    }
                 }
             }
             else
@@ -151,5 +164,33 @@ public class Character : MonoBehaviour, ISelectable, IMovable
     public bool CheckIsMoving()
     {
         return IsMoving;
+    }
+
+    public bool CheckIfValidMove(int x, int y)
+    {
+        // gather all objects with interface IUnstackable by looking through all root objects
+        List<GameObject> unstackables = new List<GameObject>();
+        GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach(var root in rootObjects)
+        {
+            if (root.GetComponentInChildren<IUnstackable>() != null)
+            {
+                unstackables.Add(root);
+            }
+        }
+
+        Debug.Log(unstackables.Count);
+
+        // check move against all objects with IUnstackable
+        foreach(var unstackable in unstackables)
+        {
+            if(Mathf.Abs(unstackable.transform.position.x - x) < 0.1f && Mathf.Abs(unstackable.transform.position.y - y) < 0.1f)
+            {
+                return false;
+            }
+        }
+
+        // else nothing blocks so valid move
+        return true;
     }
 }
