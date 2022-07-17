@@ -34,6 +34,11 @@ public class Fighter : Character
 
     public override int GenerateAttackDamage()
     {
-        return Random.Range(8, 13);
+        int damage = Random.Range(8, 13);
+        if (InitialRoll <= 2)
+        {
+            damage *= 2;
+        }
+        return damage;
     }
 }

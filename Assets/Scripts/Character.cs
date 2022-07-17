@@ -34,6 +34,8 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     [SerializeField] private Tilemap Floor;
     private Tilemap Trap;
 
+    public int InitialRoll;
+
     public void Start()
     {
         X = (int) transform.position.x;
@@ -73,6 +75,13 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         // destroy movement indicators
         MovementIndicator[] moveIndicators = FindObjectsOfType<MovementIndicator>();
         foreach (MovementIndicator m in moveIndicators)
+        {
+            Destroy(m.gameObject);
+        }
+
+        // destroy attack indicators
+        AttackIndicator[] attackIndicators = FindObjectsOfType<AttackIndicator>();
+        foreach (AttackIndicator m in attackIndicators)
         {
             Destroy(m.gameObject);
         }
@@ -267,6 +276,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
     public void SetRoll(int roll)
     {
+        InitialRoll = roll;
         MovesRemaining = roll;
         if (IsSelected)
         {
