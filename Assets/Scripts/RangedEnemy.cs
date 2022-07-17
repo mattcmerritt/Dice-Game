@@ -36,40 +36,25 @@ public class RangedEnemy : Enemy, IUnstackable
 
         Debug.Log("roll=" + MovesRemaining);
 
-        while (MovesRemaining > 0)
+        if (MovesRemaining > 0)
         {
             Character[] players = {FindObjectOfType<Fighter>(), FindObjectOfType<Ranger>()};
             foreach (Character player in players)
             {
-                if (Mathf.Abs(player.transform.position.x - transform.position.x) - 3 < 0.1 && Mathf.RoundToInt(player.transform.position.y) == transform.position.y)
+                if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) <= 3 && Mathf.RoundToInt(player.transform.position.y) == transform.position.y)
                 {
-                    if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) <= MovesRemaining)
+                    while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2 <= MovesRemaining)
                     {
-                        int distance = Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x));
-                        if (distance == 1)
-                        {
-                            for (int i = 0; i < 3 || MovesRemaining <= 0; i++)
-                            {
-                                // attack
-                                MovesRemaining -= 2;
-                            }
-                        } 
-                        else if (distance == 2)
-                        {
-
-                        }
-
-
-
-                        Debug.Log(player.name + " got hit!");
+                        // animation?
+                        Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                     }
                 }
-                if (Mathf.Abs(player.transform.position.y - transform.position.y) - 3 < 0.1 && Mathf.RoundToInt(player.transform.position.x) == transform.position.x)
+                if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) <= 3 && Mathf.RoundToInt(player.transform.position.x) == transform.position.x)
                 {
-                    if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) <= MovesRemaining)
+                    while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2 <= MovesRemaining)
                     {
-                        Debug.Log(player.name + " got hit!");
+                        Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2;
                     }
                 }
