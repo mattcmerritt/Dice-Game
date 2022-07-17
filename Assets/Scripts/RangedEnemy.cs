@@ -15,7 +15,7 @@ public class RangedEnemy : Enemy, IUnstackable
         {
             ActiveAttackRoutine = StartCoroutine(QueuedAttacks.Dequeue());
         }
-        if (!FinishedTurn && ActiveAttackRoutine == null && QueuedAttacks != null && QueuedAttacks.Count == 0)
+        if (Ani.GetCurrentAnimatorClipInfo(0)[0].clip.name.Contains("Idle") && !Die.GetComponent<Die>().isRolling && MovesRemaining <= 0 && ActiveAttackRoutine == null && QueuedAttacks != null && QueuedAttacks.Count == 0)
         {
             FinishedTurn = true;
         }
@@ -52,6 +52,7 @@ public class RangedEnemy : Enemy, IUnstackable
             yield return null;
         }
 
+        Debug.Log("cringe");
         if (MovesRemaining > 0)
         {
             Character[] players = {FindObjectOfType<Fighter>(), FindObjectOfType<Ranger>()};
@@ -75,6 +76,7 @@ public class RangedEnemy : Enemy, IUnstackable
                     }
                 }
             }
+            MovesRemaining = 0;
         }
         yield return null;
     }

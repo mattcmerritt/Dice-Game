@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy 3
       objectReference: {fileID: 0}
+    - target: {fileID: 970095735090242639, guid: 8886d3f42af72bd43a7d094afee45e50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8886d3f42af72bd43a7d094afee45e50, type: 3}
 --- !u!1 &519420028
@@ -722,6 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea15cca9c4cccec47a4b3c53ac523c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayerTurn: 0
 --- !u!4 &752837302
 Transform:
   m_ObjectHideFlags: 0

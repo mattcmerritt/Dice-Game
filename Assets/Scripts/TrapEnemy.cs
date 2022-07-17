@@ -45,7 +45,7 @@ public class TrapEnemy : Enemy, IUnstackable
         {
             ActiveMovementRoutine = StartCoroutine(QueuedMoves.Dequeue());
         }
-        if (!FinishedTurn && ActiveMovementRoutine == null && QueuedMoves != null && QueuedMoves.Count == 0)
+        if (!Die.GetComponent<Die>().isRolling && MovesRemaining <= 0 && !FinishedTurn && ActiveMovementRoutine == null && QueuedMoves != null && QueuedMoves.Count == 0)
         {
             FinishedTurn = true;
         }

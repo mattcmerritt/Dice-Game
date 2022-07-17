@@ -7,7 +7,7 @@ public class Die : MonoBehaviour
 {
     [SerializeField, Range(-1f, 1f)] private float XSpeed, YSpeed, ZSpeed;
     [SerializeField] private float XRand, YRand, ZRand;
-    private bool isRolling;
+    public bool isRolling;
     private int RollValue;
 
     private Character AssociatedPlayer;
