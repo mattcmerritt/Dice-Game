@@ -361,9 +361,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         GameObject dmg = Instantiate(DamageIndicator, transform.position + Vector3.left * 0.25f + Vector3.up * 0.75f, Quaternion.identity);
         dmg.GetComponent<DamageIndicator>().SetDetails("Player", damage);
 
-        if (Health < 0)
+        if (Health <= 0)
         {
-            Destroy(gameObject);
+            FindObjectOfType<TransitionManager>().LoadRoom(GameManager.CurrentLevel);
         } 
     }
 
