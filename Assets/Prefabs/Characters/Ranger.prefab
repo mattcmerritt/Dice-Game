@@ -141,6 +141,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   InitialRoll: 0
+  DamageIndicator: {fileID: 7366215686243318664, guid: 3d3ab03b40deb64479ea9f6490f9cf81, type: 3}
   AttackIndicator: {fileID: 6885928568262029007, guid: 6cf79dd927c4cb6478999c99382e3be3, type: 3}
 --- !u!95 &3416955915080715849
 Animator:

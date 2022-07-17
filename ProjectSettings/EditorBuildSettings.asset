@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial Level.unity
     guid: 12e4235a7444e5e46a22311b2496e7ec
+  - enabled: 1
+    path: Assets/Scenes/Trap Tutorial.unity
+    guid: a2c677533134c1f409376adb293f59d2
   m_configObjects: {}

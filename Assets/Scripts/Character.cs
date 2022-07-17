@@ -36,6 +36,8 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
     public int InitialRoll;
 
+    [SerializeField] private GameObject DamageIndicator;
+
     public void Start()
     {
         X = (int) transform.position.x;
@@ -355,6 +357,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void TakeDamage(int damage)
     {
         Health -= damage;
+
+        GameObject dmg = Instantiate(DamageIndicator, transform.position + Vector3.left * 0.25f + Vector3.up * 0.75f, Quaternion.identity);
+        dmg.GetComponent<DamageIndicator>().SetDetails("Player", damage);
+
         if (Health < 0)
         {
             Destroy(gameObject);

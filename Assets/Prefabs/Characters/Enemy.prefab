@@ -103,6 +103,7 @@ MonoBehaviour:
   RollValue: 0
   MovesRemaining: 0
   Floor: {fileID: 0}
+  DamageIndicator: {fileID: 7366215686243318664, guid: 3d3ab03b40deb64479ea9f6490f9cf81, type: 3}
 --- !u!95 &8956246414245594399
 Animator:
   serializedVersion: 3

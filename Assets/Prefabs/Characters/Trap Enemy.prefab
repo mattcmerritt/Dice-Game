@@ -222,6 +222,7 @@ MonoBehaviour:
   RollValue: 0
   MovesRemaining: 0
   Floor: {fileID: 0}
+  DamageIndicator: {fileID: 7366215686243318664, guid: 3d3ab03b40deb64479ea9f6490f9cf81, type: 3}
   ChosenIndex: 1
   Targets:
   - {x: 4, y: 2}
