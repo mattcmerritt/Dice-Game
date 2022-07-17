@@ -10,6 +10,8 @@ public class AttackIndicator : MonoBehaviour
 
     [SerializeField] private Vector3 Displacement;
 
+    [SerializeField] private LayerMask InteractLayer;
+
     private void Start()
     {
         Parent = transform.parent.gameObject;
@@ -24,7 +26,7 @@ public class AttackIndicator : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector3.forward);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector3.forward, Mathf.Infinity, InteractLayer);
 
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {

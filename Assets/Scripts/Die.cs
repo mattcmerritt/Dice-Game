@@ -23,7 +23,7 @@ public class Die : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !FindObjectOfType<GameManager>().IsEnemyTurn())
         {
             isRolling = false;
 
