@@ -311,15 +311,6 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         MovesRemaining--;
         QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
 
-        // check for traps
-        // RaycastHit2D hit = Physics2D.Raycast(transform.position - Vector3.forward, Vector3.forward, 30, TrapLayer);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position - Vector3.forward, Vector3.forward, Mathf.Infinity);
-        Debug.Log(hits.Length);
-        foreach (RaycastHit2D hit in hits)
-        {
-            Debug.Log(hit.collider.name);
-        }
-
         // check if character is on a trap
         if (Trap.GetTile(new Vector3Int(X, Y, 0)) != null && Trap.GetComponent<Trap>().CheckForDamage())
         {
