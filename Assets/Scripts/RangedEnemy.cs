@@ -69,7 +69,7 @@ public class RangedEnemy : Enemy, IUnstackable
                     {
                         Debug.Log("checking vert moves");
                         QueuedAttacks.Enqueue(Attack(player));
-                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
+                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2;
                     }
                 }
             }
