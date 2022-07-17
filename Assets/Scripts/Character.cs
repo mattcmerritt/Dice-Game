@@ -318,7 +318,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         }
     }
 
-    private void CreateMovementIndicators()
+    public void CreateMovementIndicators()
     {
         if (MovesRemaining > 0)
         {
