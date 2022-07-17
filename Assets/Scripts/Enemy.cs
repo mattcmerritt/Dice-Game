@@ -17,6 +17,8 @@ public abstract class Enemy : MonoBehaviour, IUnstackable, ISelectable
 
     [SerializeField] protected Tilemap Floor;
 
+    [SerializeField] private GameObject DamageIndicator;
+
     protected virtual void Start()
     {
         Die.GetComponent<Die>().SetParentEnemy(this);
@@ -27,6 +29,10 @@ public abstract class Enemy : MonoBehaviour, IUnstackable, ISelectable
     {
         Debug.Log(name + " took " + damage + " damage!");
         Health -= damage;
+
+        GameObject dmg = Instantiate(DamageIndicator, transform.position + Vector3.right * 0.25f + Vector3.up * 0.75f, Quaternion.identity);
+        dmg.GetComponent<DamageIndicator>().SetDetails("Enemy", damage);
+
         if (Health < 0)
         {
             DestroyImmediate(gameObject);

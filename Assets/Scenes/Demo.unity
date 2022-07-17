@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 934961011302625610, guid: 8e093220a5c8a5942a5688afe3f33d80, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 934961011302625615, guid: 8e093220a5c8a5942a5688afe3f33d80, type: 3}
       propertyPath: m_Pivot.x
@@ -5719,6 +5719,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3416955915080715850, guid: 07257115b7106a34db1b9e5ec969f42d, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3416955915080715851, guid: 07257115b7106a34db1b9e5ec969f42d, type: 3}
       propertyPath: m_Name
       value: Ranger
