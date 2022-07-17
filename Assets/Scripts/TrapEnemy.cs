@@ -45,12 +45,17 @@ public class TrapEnemy : Enemy, IUnstackable
         {
             ActiveMovementRoutine = StartCoroutine(QueuedMoves.Dequeue());
         }
+        if (!FinishedTurn && ActiveMovementRoutine == null && QueuedMoves != null && QueuedMoves.Count == 0)
+        {
+            FinishedTurn = true;
+        }
     }
 
     public override void TakeTurn()
     {
         Die.SetActive(true);
         ActiveCoroutine = StartCoroutine(RollDie());
+        FinishedTurn = false;
     }
 
     IEnumerator RollDie()

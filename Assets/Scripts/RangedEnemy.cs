@@ -15,6 +15,10 @@ public class RangedEnemy : Enemy, IUnstackable
         {
             ActiveAttackRoutine = StartCoroutine(QueuedAttacks.Dequeue());
         }
+        if (!FinishedTurn && ActiveAttackRoutine == null && QueuedAttacks != null && QueuedAttacks.Count == 0)
+        {
+            FinishedTurn = true;
+        }
     }
 
     public override void TakeTurn()
@@ -22,6 +26,7 @@ public class RangedEnemy : Enemy, IUnstackable
         Die.SetActive(true);
         QueuedAttacks = new Queue<IEnumerator>();
         ActiveCoroutine = StartCoroutine(RollDie());
+        FinishedTurn = false;
     }
 
     IEnumerator RollDie()

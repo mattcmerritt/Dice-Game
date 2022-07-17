@@ -19,6 +19,8 @@ public abstract class Enemy : MonoBehaviour, IUnstackable, ISelectable
 
     [SerializeField] private GameObject DamageIndicator;
 
+    [SerializeField] protected bool FinishedTurn;
+
     protected virtual void Start()
     {
         Die.GetComponent<Die>().SetParentEnemy(this);
@@ -105,5 +107,15 @@ public abstract class Enemy : MonoBehaviour, IUnstackable, ISelectable
         }
 
         Select();
+    }
+
+    public bool HasFinishedTurn()
+    {
+        return FinishedTurn;
+    }
+
+    public void HasNotFinishedTurn()
+    {
+        FinishedTurn = false;
     }
 }

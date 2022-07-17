@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
-    private bool IsPlayerTurn;
+    [SerializeField] private bool IsPlayerTurn;
     private bool PlayerTurnStarted, EnemyTurnStarted;
 
     // level data
@@ -67,8 +67,24 @@ public class GameManager : MonoBehaviour
                     ch.DeactivateDie();
                 }
             }
-            else
+            
+        }
+
+        Enemy[] ens = FindObjectsOfType<Enemy>();
+        if (!IsPlayerTurn)
+        {
+            Debug.Log("In Enemy Turn");
+            bool EnemyReady = true;
+            foreach (Enemy e in ens)
             {
+                if (!e.HasFinishedTurn())
+                {
+                    EnemyReady = false;
+                }
+            }
+            if (EnemyReady)
+            {
+                Debug.Log("In Enemy Ready");
                 IsPlayerTurn = true;
                 PlayerTurnStarted = false;
 
@@ -76,12 +92,24 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
                 }
+
+                foreach (Enemy e in ens)
+                {
+                    e.HasNotFinishedTurn();
+                }
+            }
+        }
+        else
+        {
+            foreach (Enemy e in ens)
+            {
+                e.HasNotFinishedTurn();
             }
         }
 
         // win/loss conditions
         Character[] chs = FindObjectsOfType<Character>();
-        Enemy[] ens = FindObjectsOfType<Enemy>();
+        
         if (chs.Length < 2)
         {
             FindObjectOfType<TransitionManager>().LoadRoom(CurrentLevel);
