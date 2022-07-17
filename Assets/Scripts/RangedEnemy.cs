@@ -5,10 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class RangedEnemy : Enemy, IUnstackable
 {
+    [SerializeField] private Animator Ani;
+    private Queue<IEnumerator> QueuedAttacks;
+    private Coroutine ActiveAttackRoutine;
+
+    public void Update()
+    {
+        if (ActiveAttackRoutine == null && QueuedAttacks != null && QueuedAttacks.Count != 0)
+        {
+            ActiveAttackRoutine = StartCoroutine(QueuedAttacks.Dequeue());
+        }
+    }
+
     public override void TakeTurn()
     {
         Die.SetActive(true);
+        QueuedAttacks = new Queue<IEnumerator>();
         ActiveCoroutine = StartCoroutine(RollDie());
+
     }
 
     IEnumerator RollDie()
@@ -43,23 +57,28 @@ public class RangedEnemy : Enemy, IUnstackable
                 {
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2 <= MovesRemaining)
                     {
-                        // animation?
-                        Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
-                        player.TakeDamage(Random.Range(5, 11));
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
+                        QueuedAttacks.Enqueue(Attack(player));
                     }
                 }
                 if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) <= 3 && Mathf.RoundToInt(player.transform.position.x) == transform.position.x)
                 {
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2 <= MovesRemaining)
                     {
-                        Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
-                        player.TakeDamage(Random.Range(5, 11));
-                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2;
+                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
+                        QueuedAttacks.Enqueue(Attack(player));
                     }
                 }
             }
         }
         yield return null;
+    }
+
+    IEnumerator Attack(Character player)
+    {
+        Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
+        Ani.Play("EnemyShoot");
+        yield return new WaitForSeconds(1.5f);
+        player.TakeDamage(Random.Range(5, 11));
     }
 }

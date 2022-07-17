@@ -234,8 +234,8 @@ MonoBehaviour:
   Traps:
   - {fileID: 0}
   - {fileID: 0}
-  Ani: {fileID: 0}
-  AnimationClipPrefix: 
+  Ani: {fileID: 5657223923647988480}
+  AnimationClipPrefix: Enemy
 --- !u!95 &5657223923647988480
 Animator:
   serializedVersion: 3

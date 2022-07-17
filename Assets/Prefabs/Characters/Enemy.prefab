@@ -103,6 +103,7 @@ MonoBehaviour:
   RollValue: 0
   MovesRemaining: 0
   Floor: {fileID: 0}
+  Ani: {fileID: 8956246414245594399}
 --- !u!95 &8956246414245594399
 Animator:
   serializedVersion: 3
