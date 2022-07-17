@@ -16,9 +16,9 @@ public class Die : MonoBehaviour
     private void Start()
     {
         isRolling = true;
-        XRand = Random.Range(-5, 5);
-        YRand = Random.Range(-5, 5);
-        ZRand = Random.Range(-5, 5);
+        XRand = Random.Range(-180, 180);
+        YRand = Random.Range(-180, 180);
+        ZRand = Random.Range(-180, 180);
     }
 
     private void Update()
@@ -39,9 +39,9 @@ public class Die : MonoBehaviour
         }
         else if (isRolling)
         {
-            XSpeed = Mathf.Sin(Time.time * XRand);
-            YSpeed = Mathf.Sin(1.7f * Time.time * YRand);
-            ZSpeed = Mathf.Sin(0.33f * Time.time * ZRand);
+            XSpeed = Mathf.Sin(Time.time + XRand);
+            YSpeed = Mathf.Sin(1.7f * Time.time + YRand);
+            ZSpeed = Mathf.Sin(0.33f * Time.time + ZRand);
 
             transform.Rotate(XSpeed, YSpeed, ZSpeed);
         }
