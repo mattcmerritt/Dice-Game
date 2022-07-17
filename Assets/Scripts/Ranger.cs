@@ -43,6 +43,7 @@ public class Ranger : Character
 
     public override int GenerateAttackDamage()
     {
+        Ani.Play("RangerShoot");
         return Random.Range(3, 8);
     }
 }

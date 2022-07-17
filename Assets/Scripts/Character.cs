@@ -24,7 +24,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     [SerializeField] private Die DieScript;
 
     // animator
-    [SerializeField] private Animator Ani;
+    [SerializeField] protected Animator Ani;
     [SerializeField] private string AnimationClipPrefix;
 
     // movement indicators
