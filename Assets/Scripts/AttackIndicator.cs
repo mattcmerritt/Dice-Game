@@ -8,10 +8,15 @@ public class AttackIndicator : MonoBehaviour
     private GameObject Parent;
     public int MovementCost;
 
+    [SerializeField] private Vector3 Displacement;
+
     private void Start()
     {
         Parent = transform.parent.gameObject;
         Inputs = FindObjectOfType<InputManager>();
+
+        // shifting down by displacement
+        transform.position += Displacement;
     }
 
     private void Update()
