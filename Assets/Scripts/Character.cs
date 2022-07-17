@@ -12,6 +12,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     private bool UsedMovement;
     [SerializeField] public int MovesRemaining;
     protected int X, Y;
+    private int Health = 50;
 
     // coroutines for movement
     protected Coroutine ActiveMovementRoutine;
@@ -31,6 +32,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
     // tilemaps
     [SerializeField] private Tilemap Floor;
+    private Tilemap Trap;
 
     public void Start()
     {
@@ -41,6 +43,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         DieScript.SetPlayer(this);
 
         Floor = GameObject.Find("Floor").GetComponent<Tilemap>();
+        Trap = GameObject.Find("Trap").GetComponent<Tilemap>();
     }
 
     public void StartTurn()
@@ -206,7 +209,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
     public string GetDetails()
     {
-        return $"{gameObject.name}\nHealth: N/A\nMoves: {MovesRemaining}";
+        return $"{gameObject.name}\nHealth: {Health}\nMoves: {MovesRemaining}";
     }
 
     public int GetX()
@@ -277,9 +280,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             if (CheckIfValidMove(X, Y + 1))
             {
                 // player moves right
-                MovesRemaining--;
                 Y++;
-                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
             }
         }
         if (direction.Contains("Down"))
@@ -287,9 +288,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             if (CheckIfValidMove(X, Y - 1))
             {
                 // player moves right
-                MovesRemaining--;
                 Y--;
-                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
             }
         }
         if (direction.Contains("Left"))
@@ -297,9 +296,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             if (CheckIfValidMove(X - 1, Y))
             {
                 // player moves right
-                MovesRemaining--;
                 X--;
-                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
             }
         }
         if (direction.Contains("Right"))
@@ -307,10 +304,26 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
             if (CheckIfValidMove(X + 1, Y))
             {
                 // player moves right
-                MovesRemaining--;
                 X++;
-                QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
             }
+        }
+
+        MovesRemaining--;
+        QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
+
+        // check for traps
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position - Vector3.forward, Vector3.forward, 30, TrapLayer);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position - Vector3.forward, Vector3.forward, Mathf.Infinity);
+        Debug.Log(hits.Length);
+        foreach (RaycastHit2D hit in hits)
+        {
+            Debug.Log(hit.collider.name);
+        }
+
+        // check if character is on a trap
+        if (Trap.GetTile(new Vector3Int(X, Y, 0)) != null && Trap.GetComponent<Trap>().CheckForDamage())
+        {
+            TakeDamage(Trap.GetComponent<Trap>().GetDamage());
         }
     }
 
@@ -335,5 +348,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
                 Instantiate(Down, transform.position + Vector3.down, Quaternion.identity);
             }
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
     }
 }
