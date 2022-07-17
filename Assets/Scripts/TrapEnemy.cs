@@ -167,7 +167,6 @@ public class TrapEnemy : Enemy, IUnstackable
                         currentPos.y++;
                         
                     }
-                    Debug.Log("moving");
                     MovesRemaining--;
                 }
             }
