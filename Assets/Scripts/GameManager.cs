@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public static int CurrentLevel = 1; // 1 is the tutorial level
     private bool Cleared;
 
+    private float EnemyTurnTimer = 7f;
+    private float EnemyElapsedTime;
+
     private void Start()
     {
         IsPlayerTurn = true;
@@ -45,6 +48,7 @@ public class GameManager : MonoBehaviour
             }
 
             EnemyTurnStarted = true;
+            EnemyElapsedTime = 0f;
         }
 
         // switching turns
@@ -67,7 +71,11 @@ public class GameManager : MonoBehaviour
                     ch.DeactivateDie();
                 }
             }
-            else
+        }
+
+        if (!IsPlayerTurn && EnemyTurnStarted)
+        {
+            if (EnemyElapsedTime >= EnemyTurnTimer)
             {
                 IsPlayerTurn = true;
                 PlayerTurnStarted = false;
@@ -76,6 +84,10 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
                 }
+            }
+            else
+            {
+                EnemyElapsedTime += Time.deltaTime;
             }
         }
 
