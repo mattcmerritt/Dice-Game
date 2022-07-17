@@ -2813,6 +2813,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 492103154554271566, guid: bf0aa9525e12a554bb1752ed12ff1f80, type: 3}
+      propertyPath: Traps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 492103154554271566, guid: bf0aa9525e12a554bb1752ed12ff1f80, type: 3}
+      propertyPath: Traps.Array.data[0]
+      value: 
+      objectReference: {fileID: 831919142}
     - target: {fileID: 492103154554271567, guid: bf0aa9525e12a554bb1752ed12ff1f80, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -2883,6 +2891,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3416955915080715848, guid: 07257115b7106a34db1b9e5ec969f42d, type: 3}
+      propertyPath: Traps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416955915080715848, guid: 07257115b7106a34db1b9e5ec969f42d, type: 3}
+      propertyPath: Traps.Array.data[0]
+      value: 
+      objectReference: {fileID: 831919142}
     - target: {fileID: 3416955915080715851, guid: 07257115b7106a34db1b9e5ec969f42d, type: 3}
       propertyPath: m_Name
       value: Ranger

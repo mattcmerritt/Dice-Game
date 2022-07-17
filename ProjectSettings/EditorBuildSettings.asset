@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Trap Tutorial.unity
     guid: a2c677533134c1f409376adb293f59d2
+  - enabled: 1
+    path: Assets/Scenes/Brawl Room.unity
+    guid: d4b7332bfe4dcdb44bc5a1b7b34992c2
+  - enabled: 1
+    path: Assets/Scenes/Ranged Level.unity
+    guid: f74585ea6c899564b8b7436f4d544832
   m_configObjects: {}

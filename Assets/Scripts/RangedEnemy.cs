@@ -44,6 +44,7 @@ public class RangedEnemy : Enemy, IUnstackable
         // wait for die to finish rolling and despawn
         while (Die.activeSelf)
         {
+            Debug.LogWarning("die rolling");
             yield return null;
         }
 
@@ -57,6 +58,7 @@ public class RangedEnemy : Enemy, IUnstackable
                 {
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2 <= MovesRemaining)
                     {
+                        Debug.Log("checking horiz moves");
                         QueuedAttacks.Enqueue(Attack(player));
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                     }
@@ -65,6 +67,7 @@ public class RangedEnemy : Enemy, IUnstackable
                 {
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2 <= MovesRemaining)
                     {
+                        Debug.Log("checking vert moves");
                         QueuedAttacks.Enqueue(Attack(player));
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                     }
