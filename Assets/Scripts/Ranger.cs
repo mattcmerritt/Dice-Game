@@ -13,7 +13,7 @@ public class Ranger : Character
         // Queueing Attacks
         if (IsSelected && IsMoving && ActiveMovementRoutine == null)
         {
-            if (MovesRemaining > 1)
+            if (MovesRemaining > 0)
             {
                 Enemy[] enemies = FindObjectsOfType<Enemy>();
                 foreach (Enemy enemy in enemies)
@@ -23,8 +23,7 @@ public class Ranger : Character
                         if (enemy.GetComponentInChildren<AttackIndicator>() == null)
                         {
                             GameObject attack = Instantiate(AttackIndicator, enemy.transform);
-                            attack.GetComponent<AttackIndicator>().MovementCost = 
-                                Mathf.Max(2, Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.x - X)));
+                            attack.GetComponent<AttackIndicator>().MovementCost = Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.x - X));
                         }
                     }
                     if (Mathf.Abs(enemy.transform.position.y - Y) - MovesRemaining < 0.1 && Mathf.RoundToInt(enemy.transform.position.x) == X)
@@ -32,8 +31,7 @@ public class Ranger : Character
                         if (enemy.GetComponentInChildren<AttackIndicator>() == null)
                         {
                             GameObject attack = Instantiate(AttackIndicator, enemy.transform);
-                            attack.GetComponent<AttackIndicator>().MovementCost =
-                                Mathf.Max(2, Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.y - Y)));
+                            attack.GetComponent<AttackIndicator>().MovementCost = Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.y - Y));
                         }
                     }
                 }
@@ -44,6 +42,11 @@ public class Ranger : Character
     public override int GenerateAttackDamage()
     {
         Ani.Play("RangerShoot");
-        return Random.Range(3, 8);
+        int damage = Random.Range(5, 10);
+        if (InitialRoll <= 2)
+        {
+            damage *= 2;
+        }
+        return damage;
     }
 }
