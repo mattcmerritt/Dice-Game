@@ -16,9 +16,9 @@ public class MovementIndicator : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition - 10f * Vector3.forward, mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector3.forward);
 
-            if (hit.collider.gameObject == gameObject)
+            if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
                 InputManager.SelectedObject.GetComponent<Character>().EnqueueMove(hit.collider.name);
             }

@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
     private bool IsPlayerTurn;
     private bool PlayerTurnStarted, EnemyTurnStarted;
 
+    private Tilemap Trap;
+
     private void Start()
     {
         IsPlayerTurn = true;
         PlayerTurnStarted = false;
+
+        Trap = GameObject.Find("Trap").GetComponent<Tilemap>();
     }
 
     private void Update()
@@ -39,6 +44,16 @@ public class GameManager : MonoBehaviour
                 enemy.TakeTurn();
             }
 
+            // check if character is on a trap and deal damage
+            Character[] characters = FindObjectsOfType<Character>();
+            foreach (Character ch in characters)
+            {
+                if (Trap.GetTile(new Vector3Int(ch.GetX(), ch.GetY(), 0)) != null && Trap.GetComponent<Trap>().CheckForDamage())
+                {
+                    ch.TakeDamage(Trap.GetComponent<Trap>().GetDamage());
+                }
+            }
+
             EnemyTurnStarted = true;
         }
 
@@ -56,5 +71,10 @@ public class GameManager : MonoBehaviour
                 PlayerTurnStarted = false;
             }
         }
+    }
+
+    public bool IsEnemyTurn()
+    {
+        return !IsPlayerTurn;
     }
 }
