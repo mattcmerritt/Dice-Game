@@ -64,11 +64,15 @@ public class GameManager : MonoBehaviour
             {
                 IsPlayerTurn = false;
                 EnemyTurnStarted = false;
+
+                GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
             }
             else
             {
                 IsPlayerTurn = true;
                 PlayerTurnStarted = false;
+
+                GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
             }
         }
     }

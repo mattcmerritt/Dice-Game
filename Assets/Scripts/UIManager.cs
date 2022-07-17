@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     public void SelectCharacter(GameObject selected)
     {
         DetailsPanel.SetActive(true);
-        DetailsBox.SetText(selected.GetComponent<Character>().GetDetails());
+        DetailsBox.SetText(selected.GetComponent<ISelectable>().GetDetails());
         Portrait.sprite = selected.GetComponent<SpriteRenderer>().sprite;
 
         Cursor.transform.position = selected.transform.position;

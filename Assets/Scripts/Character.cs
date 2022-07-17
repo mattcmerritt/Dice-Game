@@ -68,6 +68,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void Deselect()
     {
         IsSelected = false;
+        GameObject.FindObjectOfType<UIManager>().DeselectCharacter();
 
         // destroy movement indicators
         MovementIndicator[] moveIndicators = FindObjectsOfType<MovementIndicator>();
