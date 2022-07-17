@@ -17,7 +17,7 @@ public abstract class Enemy : MonoBehaviour, IUnstackable, ISelectable
 
     [SerializeField] protected Tilemap Floor;
 
-    private void Start()
+    protected virtual void Start()
     {
         Die.GetComponent<Die>().SetParentEnemy(this);
         Floor = GameObject.Find("Floor").GetComponent<Tilemap>();

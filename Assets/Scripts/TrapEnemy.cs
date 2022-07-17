@@ -23,6 +23,22 @@ public class TrapEnemy : Enemy, IUnstackable
     private Queue<IEnumerator> QueuedMoves;
     private Coroutine ActiveMovementRoutine;
 
+    protected override void Start()
+    {
+        base.Start();
+        foreach (Trap trap in Traps)
+        {
+            trap.Deactivate();
+        }
+
+        // check if on button
+        if (Targets[ChosenIndex] == new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)))
+        {
+            Traps[ChosenIndex].Activate();
+            MovesRemaining = 0;
+        }
+    }
+
     public void Update()
     {
         if(ActiveMovementRoutine == null && QueuedMoves != null && QueuedMoves.Count != 0)
@@ -121,54 +137,46 @@ public class TrapEnemy : Enemy, IUnstackable
                     }
                 }
             }
-            if (Targets[ChosenIndex] == new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)))
-            {
-                Traps[ChosenIndex].Activate();
-                MovesRemaining = 0;
-            }
-            else
+
+            // move toward chosen target
+            Vector2Int currentPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+            QueuedMoves = new Queue<IEnumerator>();
+            while (MovesRemaining > 0)
             {
                 // deactivate all traps
                 foreach (Trap trap in Traps)
                 {
                     trap.Deactivate();
                 }
-
-                // move toward chosen target
-                Vector2Int currentPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-                QueuedMoves = new Queue<IEnumerator>();
-                while (MovesRemaining > 0)
+                if (MovesRemaining > 0 && currentPos.x > Targets[ChosenIndex].x && CheckIfValidMove(currentPos.x - 1, currentPos.y))
                 {
-                    if (MovesRemaining > 0 && currentPos.x > Targets[ChosenIndex].x && CheckIfValidMove(currentPos.x - 1, currentPos.y))
-                    {
-                        // move left
-                        QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x - 1, currentPos.y, 0), 0.5f));
-                        currentPos.x--;
+                    // move left
+                    QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x - 1, currentPos.y, 0), 0.5f));
+                    currentPos.x--;
                         
-                    }
-                    else if (MovesRemaining > 0 && currentPos.x < Targets[ChosenIndex].x && CheckIfValidMove(currentPos.x + 1, currentPos.y))
-                    {
-                        // move right
-                        QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x + 1, currentPos.y, 0), 0.5f));
-                        currentPos.x++;
-                        
-                    }
-                    else if (MovesRemaining > 0 && currentPos.y > Targets[ChosenIndex].y && CheckIfValidMove(currentPos.x, currentPos.y - 1))
-                    {
-                        // move down
-                        QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x, currentPos.y - 1, 0), 0.5f));
-                        currentPos.y--;
-                        
-                    }
-                    else if (MovesRemaining > 0 && currentPos.y < Targets[ChosenIndex].y && CheckIfValidMove(currentPos.x, currentPos.y + 1))
-                    {
-                        // move up
-                        QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x, currentPos.y + 1, 0), 0.5f));
-                        currentPos.y++;
-                        
-                    }
-                    MovesRemaining--;
                 }
+                else if (MovesRemaining > 0 && currentPos.x < Targets[ChosenIndex].x && CheckIfValidMove(currentPos.x + 1, currentPos.y))
+                {
+                    // move right
+                    QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x + 1, currentPos.y, 0), 0.5f));
+                    currentPos.x++;
+                        
+                }
+                else if (MovesRemaining > 0 && currentPos.y > Targets[ChosenIndex].y && CheckIfValidMove(currentPos.x, currentPos.y - 1))
+                {
+                    // move down
+                    QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x, currentPos.y - 1, 0), 0.5f));
+                    currentPos.y--;
+                        
+                }
+                else if (MovesRemaining > 0 && currentPos.y < Targets[ChosenIndex].y && CheckIfValidMove(currentPos.x, currentPos.y + 1))
+                {
+                    // move up
+                    QueuedMoves.Enqueue(Lerp(new Vector3(currentPos.x, currentPos.y + 1, 0), 0.5f));
+                    currentPos.y++;
+                        
+                }
+                MovesRemaining--;
             }
             yield return null;
         }
@@ -204,6 +212,13 @@ public class TrapEnemy : Enemy, IUnstackable
                 Ani.Play(AnimationClipPrefix + "Idle");
             }
             ActiveMovementRoutine = null;
+
+            // check if on button
+            if (Targets[ChosenIndex] == new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)))
+            {
+                Traps[ChosenIndex].Activate();
+                MovesRemaining = 0;
+            }
         }
     }
 }

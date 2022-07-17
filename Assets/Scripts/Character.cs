@@ -32,7 +32,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
 
     // tilemaps
     [SerializeField] private Tilemap Floor;
-    private Tilemap Trap;
+    [SerializeField] private Tilemap[] Traps;
 
     public int InitialRoll;
 
@@ -45,7 +45,6 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         DieScript.SetPlayer(this);
 
         Floor = GameObject.Find("Floor").GetComponent<Tilemap>();
-        Trap = GameObject.Find("Trap").GetComponent<Tilemap>();
     }
 
     public void StartTurn()
@@ -323,9 +322,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
         QueuedMoves.Enqueue(Lerp(new Vector3(X, Y, transform.position.z), MoveDuration));
 
         // check if character is on a trap
-        if (Trap.GetTile(new Vector3Int(X, Y, 0)) != null && Trap.GetComponent<Trap>().CheckForDamage())
+        foreach (Tilemap trap in Traps)
+        if (trap.GetTile(new Vector3Int(X, Y, 0)) != null && trap.GetComponent<Trap>().CheckForDamage())
         {
-            TakeDamage(Trap.GetComponent<Trap>().GetDamage());
+            TakeDamage(trap.GetComponent<Trap>().GetDamage());
         }
     }
 

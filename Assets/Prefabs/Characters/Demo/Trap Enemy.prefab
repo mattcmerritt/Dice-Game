@@ -193,9 +193,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 2012343631643287295, guid: 93203dfbd4edc714c8dbb33b74f2692f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4710306, g: 0.6886792, b: 0.5578479, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -222,15 +222,15 @@ MonoBehaviour:
   RollValue: 0
   MovesRemaining: 0
   Floor: {fileID: 0}
-  ChosenIndex: 0
+  ChosenIndex: 1
   Targets:
-  - {x: -5, y: 3}
-  - {x: -2, y: -3}
+  - {x: 4, y: 2}
+  - {x: 4, y: -2}
   AreasOfInterest:
   - coords:
-    - {x: 1, y: 1}
+    - {x: 0, y: 2}
   - coords:
-    - {x: 3, y: 3}
+    - {x: 0, y: -2}
   Traps:
   - {fileID: 0}
   - {fileID: 0}
