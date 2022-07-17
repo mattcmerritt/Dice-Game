@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
 
     private Tilemap Trap;
 
+    // level data
     public static int CurrentLevel = 1; // 1 is the tutorial level
+    private bool Cleared;
 
     private void Start()
     {
@@ -99,8 +101,9 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<TransitionManager>().LoadRoom(CurrentLevel);
         }
         
-        if (ens.Length == 0)
+        if (ens.Length == 0 && !Cleared)
         {
+            Cleared = true;
             CurrentLevel++;
             FindObjectOfType<TransitionManager>().LoadRoom(CurrentLevel);
         }

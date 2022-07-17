@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3526741623948791421}
   - component: {fileID: 5352004197207346288}
   - component: {fileID: 8589466456694407593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,3 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Displacement: {x: 0, y: -0.33, z: 0}
+  InteractLayer:
+    serializedVersion: 2
+    m_Bits: 256

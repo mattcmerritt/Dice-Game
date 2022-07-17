@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8068160857719035946}
   - component: {fileID: 7490436413861619365}
   - component: {fileID: 1506489158513944102}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,9 @@ MonoBehaviour:
   Inputs: {fileID: 0}
   MovementCost: 0
   Displacement: {x: 0, y: -0.33, z: 0}
+  InteractLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!61 &1506489158513944102
 BoxCollider2D:
   m_ObjectHideFlags: 0

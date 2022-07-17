@@ -34,6 +34,7 @@ public class Fighter : Character
 
     public override int GenerateAttackDamage()
     {
+        Ani.Play("FighterAttack");
         int damage = Random.Range(8, 13);
         if (InitialRoll <= 2)
         {
