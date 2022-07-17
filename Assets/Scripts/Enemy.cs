@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
-public class Enemy : MonoBehaviour, IUnstackable
+public abstract class Enemy : MonoBehaviour, IUnstackable
 {
-    [SerializeField] private int Health;
+    [SerializeField] protected int Health;
 
-    [SerializeField] private GameObject Die;
-    private int RollValue;
-    private int MovesRemaining;
-    private Coroutine ActiveCoroutine;
+    [SerializeField] protected GameObject Die;
+    [SerializeField] protected int RollValue;
+    [SerializeField] protected int MovesRemaining;
+    protected Coroutine ActiveCoroutine;
 
-    private bool isRolling;
+    protected bool isRolling;
+
+    [SerializeField] protected Tilemap Floor;
 
     private void Start()
     {
         Die.GetComponent<Die>().SetParentEnemy(this);
+        Floor = GameObject.Find("Floor").GetComponent<Tilemap>();
     }
 
     public void TakeDamage(int damage)
@@ -51,6 +55,12 @@ public class Enemy : MonoBehaviour, IUnstackable
             }
         }
 
+        // check for valid floor tile
+        if (Floor.GetTile(new Vector3Int(x, y, 0)) == null)
+        {
+            return false;
+        }
+
         // else nothing blocks so valid move
         return true;
     }
@@ -61,55 +71,5 @@ public class Enemy : MonoBehaviour, IUnstackable
         MovesRemaining = roll;
     }
 
-    public void TakeTurn()
-    {
-        Die.SetActive(true);
-        ActiveCoroutine = StartCoroutine(RollDie());
-    }
-
-    IEnumerator RollDie()
-    {
-        
-        Die.GetComponent<Die>().StartRolling();
-        isRolling = true;
-        yield return new WaitForSeconds(4);
-        if (isRolling)
-        {
-            isRolling = false;
-            StopCoroutine(ActiveCoroutine);
-            Die.GetComponent<Die>().StopRolling();
-        }
-    }
-
-    IEnumerator PerformAttacks()
-    {
-        bool NoViableAttacks = false;
-        while (MovesRemaining > 0 && !NoViableAttacks)
-        {
-            NoViableAttacks = true;
-            Character[] players = FindObjectsOfType<Character>();
-            foreach (Character player in players)
-            {
-                if (Mathf.Abs(player.transform.position.x - transform.position.x) - MovesRemaining < 0.1 && Mathf.RoundToInt(player.transform.position.y) == transform.position.y)
-                {
-                    if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) <= MovesRemaining)
-                    {
-                        // do attack
-                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x));
-                        NoViableAttacks = false;
-                    }
-                }
-                if (Mathf.Abs(player.transform.position.y - transform.position.y) - MovesRemaining < 0.1 && Mathf.RoundToInt(player.transform.position.x) == transform.position.x)
-                {
-                    if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) <= MovesRemaining)
-                    {
-                        // do attack
-                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y));
-                        NoViableAttacks = false;
-                    }
-                }
-            }
-        }
-        yield return null;
-    }
+    public abstract void TakeTurn();
 }
