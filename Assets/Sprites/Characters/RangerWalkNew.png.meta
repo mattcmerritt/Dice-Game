@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: d0f2fd00b6228dc41bd88513b2370b05
+guid: ccea9aa47f944814d9ca5326b6599555
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2021051994342499127
-    second: RangerWalkNew_0
+      213: -8911631403294767699
+    second: RangerWalk 1_0
   - first:
-      213: -3172756041806118044
-    second: RangerWalkNew_1
+      213: 2926503586981428954
+    second: RangerWalk 1_1
   - first:
-      213: -3445328249911120707
-    second: RangerWalkNew_2
+      213: 1764319902503893078
+    second: RangerWalk 1_2
   - first:
-      213: 1333643677114117358
-    second: RangerWalkNew_3
+      213: -3260870989171718681
+    second: RangerWalk 1_3
   - first:
-      213: 2607651102295284092
-    second: RangerWalkNew_4
+      213: 393265863192573528
+    second: RangerWalk 1_4
   - first:
-      213: 9058641553979929159
-    second: RangerWalkNew_5
+      213: 2952365202362237484
+    second: RangerWalk 1_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -86,7 +86,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +110,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -121,7 +121,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RangerWalkNew_0
+      name: RangerWalk 1_0
       rect:
         serializedVersion: 2
         x: 2
@@ -135,14 +135,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ccde9c4be7c3f3e0800000000000000
-      internalID: -2021051994342499127
+      spriteID: da5466d5476835480800000000000000
+      internalID: -8911631403294767699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalkNew_1
+      name: RangerWalk 1_1
       rect:
         serializedVersion: 2
         x: 36
@@ -156,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4630c21a03b18f3d0800000000000000
-      internalID: -3172756041806118044
+      spriteID: ade3fefc1870d9820800000000000000
+      internalID: 2926503586981428954
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalkNew_2
+      name: RangerWalk 1_2
       rect:
         serializedVersion: 2
         x: 70
@@ -177,14 +177,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbced69f53cbf20d0800000000000000
-      internalID: -3445328249911120707
+      spriteID: 65875e28a9f1c7810800000000000000
+      internalID: 1764319902503893078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalkNew_3
+      name: RangerWalk 1_3
       rect:
         serializedVersion: 2
         x: 104
@@ -198,14 +198,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eec255fbbdd028210800000000000000
-      internalID: 1333643677114117358
+      spriteID: 7e50b08bc1f0fb2d0800000000000000
+      internalID: -3260870989171718681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalkNew_4
+      name: RangerWalk 1_4
       rect:
         serializedVersion: 2
         x: 138
@@ -219,14 +219,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7957729cdc303420800000000000000
-      internalID: 2607651102295284092
+      spriteID: 85671ed0839257500800000000000000
+      internalID: 393265863192573528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalkNew_5
+      name: RangerWalk 1_5
       rect:
         serializedVersion: 2
         x: 172
@@ -240,8 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 742f094af72c6bd70800000000000000
-      internalID: 9058641553979929159
+      spriteID: c22860e5288e8f820800000000000000
+      internalID: 2952365202362237484
       vertices: []
       indices: 
       edges: []

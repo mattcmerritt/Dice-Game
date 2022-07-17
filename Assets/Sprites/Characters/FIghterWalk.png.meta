@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 656b2a0a7cbd2564187a3cd566f15719
+guid: 38ea9d493845bab4aa9ceb777dfe25dd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1783810020457355066
-    second: RangerWalk_0
+      213: 145577037726517655
+    second: FIghterWalk_0
   - first:
-      213: -8738555885217701462
-    second: RangerWalk_1
+      213: 174362864391290351
+    second: FIghterWalk_1
   - first:
-      213: -4468059657657969230
-    second: RangerWalk_2
+      213: -6828920107076316890
+    second: FIghterWalk_2
   - first:
-      213: 863109353349058405
-    second: RangerWalk_3
+      213: -938809042680639510
+    second: FIghterWalk_3
+  - first:
+      213: 5691969648538518816
+    second: FIghterWalk_4
+  - first:
+      213: -8286200009059524043
+    second: FIghterWalk_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -44,7 +50,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -80,7 +86,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -104,7 +110,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,12 +121,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RangerWalk_0
+      name: FIghterWalk_0
       rect:
         serializedVersion: 2
         x: 2
         y: 2
-        width: 32
+        width: 48
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -129,19 +135,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c86bd7cc32ae37e0800000000000000
-      internalID: -1783810020457355066
+      spriteID: 79984256b81350200800000000000000
+      internalID: 145577037726517655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalk_1
+      name: FIghterWalk_1
       rect:
         serializedVersion: 2
-        x: 36
+        x: 52
         y: 2
-        width: 32
+        width: 48
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -150,19 +156,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa123b3a8b96ab680800000000000000
-      internalID: -8738555885217701462
+      spriteID: fedff02f9167b6200800000000000000
+      internalID: 174362864391290351
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalk_2
+      name: FIghterWalk_2
       rect:
         serializedVersion: 2
-        x: 70
+        x: 102
         y: 2
-        width: 32
+        width: 48
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -171,19 +177,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b51b060a634ef1c0800000000000000
-      internalID: -4468059657657969230
+      spriteID: 6219132085dca31a0800000000000000
+      internalID: -6828920107076316890
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RangerWalk_3
+      name: FIghterWalk_3
       rect:
         serializedVersion: 2
-        x: 104
+        x: 152
         y: 2
-        width: 32
+        width: 48
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -192,8 +198,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56f00b842616afb00800000000000000
-      internalID: 863109353349058405
+      spriteID: aef8813562ea8f2f0800000000000000
+      internalID: -938809042680639510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FIghterWalk_4
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 2
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 025817dec30fdfe40800000000000000
+      internalID: 5691969648538518816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FIghterWalk_5
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 2
+        width: 48
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5322b227ef0810d80800000000000000
+      internalID: -8286200009059524043
       vertices: []
       indices: 
       edges: []
