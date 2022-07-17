@@ -826,6 +826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trap Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8223573377760480623, guid: e00201f6eda9e91459c423423d1ea67b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e00201f6eda9e91459c423423d1ea67b, type: 3}
 --- !u!1 &831919139

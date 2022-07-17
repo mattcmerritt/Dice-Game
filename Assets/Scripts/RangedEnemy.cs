@@ -22,7 +22,6 @@ public class RangedEnemy : Enemy, IUnstackable
         Die.SetActive(true);
         QueuedAttacks = new Queue<IEnumerator>();
         ActiveCoroutine = StartCoroutine(RollDie());
-
     }
 
     IEnumerator RollDie()
@@ -53,20 +52,21 @@ public class RangedEnemy : Enemy, IUnstackable
             Character[] players = {FindObjectOfType<Fighter>(), FindObjectOfType<Ranger>()};
             foreach (Character player in players)
             {
+                Debug.Log(Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)));
                 if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) <= 3 && Mathf.RoundToInt(player.transform.position.y) == transform.position.y)
                 {
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2 <= MovesRemaining)
                     {
-                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                         QueuedAttacks.Enqueue(Attack(player));
+                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                     }
                 }
                 if (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) <= 3 && Mathf.RoundToInt(player.transform.position.x) == transform.position.x)
                 {
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2 <= MovesRemaining)
                     {
-                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                         QueuedAttacks.Enqueue(Attack(player));
+                        MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                     }
                 }
             }
@@ -78,7 +78,8 @@ public class RangedEnemy : Enemy, IUnstackable
     {
         Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
         Ani.Play("EnemyShoot");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.55f);
         player.TakeDamage(Random.Range(5, 11));
+        ActiveAttackRoutine = null;
     }
 }
