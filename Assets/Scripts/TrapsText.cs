@@ -17,11 +17,7 @@ public class TrapsText : MonoBehaviour
         {
             Index++;
         }
-        if (Index == 3 && Input.GetKeyDown(KeyCode.Return))
-        {
-            Index++;
-        }
-        if (Index == 4 && Input.GetKeyDown(KeyCode.Space))
+        if (Index == 1 && Input.GetKeyDown(KeyCode.Return))
         {
             Index++;
         }
