@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 492103154554271567}
   - component: {fileID: 492103154554271561}
   - component: {fileID: 492103154554271566}
+  - component: {fileID: 169665350978668979}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f1e2c60c82e22cf479f731cf1e090244, type: 3}
+  m_Sprite: {fileID: 362704759039238706, guid: 29b5fe92c4d15b948b30890a0b722797, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +103,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.75, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -129,14 +130,33 @@ MonoBehaviour:
   MoveDuration: 0.5
   Die: {fileID: 689199372820983859}
   DieScript: {fileID: 0}
-  Ani: {fileID: 0}
-  AnimationClipPrefix: 
+  Ani: {fileID: 169665350978668979}
+  AnimationClipPrefix: Fighter
   Left: {fileID: 6023296722499351811, guid: 4c7fd59a70b069b4cac110fb7b5596c5, type: 3}
   Right: {fileID: 334817354664759435, guid: 8e841aa40d8bb8245b250aa586431922, type: 3}
   Up: {fileID: 5852284104570415147, guid: aced844ec1a2f1046b5ddf29a58da744, type: 3}
   Down: {fileID: 6644835530116944884, guid: 32beefa97df6d9b4b8412ca1c3ab4a79, type: 3}
   Floor: {fileID: 0}
   AttackIndicator: {fileID: 6885928568262029007, guid: 6cf79dd927c4cb6478999c99382e3be3, type: 3}
+--- !u!95 &169665350978668979
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492103154554271560}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ec4da844d5511a42ae72fa7abe4161a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &812247766389238800
 PrefabInstance:
   m_ObjectHideFlags: 0
