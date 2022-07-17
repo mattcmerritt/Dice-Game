@@ -143,11 +143,6 @@ public class TrapEnemy : Enemy, IUnstackable
             QueuedMoves = new Queue<IEnumerator>();
             while (MovesRemaining > 0)
             {
-                // deactivate all traps
-                foreach (Trap trap in Traps)
-                {
-                    trap.Deactivate();
-                }
                 if (MovesRemaining > 0 && currentPos.x > Targets[ChosenIndex].x && CheckIfValidMove(currentPos.x - 1, currentPos.y))
                 {
                     // move left
@@ -183,6 +178,12 @@ public class TrapEnemy : Enemy, IUnstackable
 
         IEnumerator Lerp(Vector3 target, float duration)
         {
+            // deactivate all traps
+            foreach (Trap trap in Traps)
+            {
+                trap.Deactivate();
+            }
+
             Vector3 start = transform.position;
             float elapsedTime = 0f;
 

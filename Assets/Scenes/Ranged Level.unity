@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 934961011302625610, guid: 8e093220a5c8a5942a5688afe3f33d80, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 934961011302625615, guid: 8e093220a5c8a5942a5688afe3f33d80, type: 3}
       propertyPath: m_Pivot.x
@@ -846,6 +846,10 @@ PrefabInstance:
     - target: {fileID: 8223573377760480623, guid: e00201f6eda9e91459c423423d1ea67b, type: 3}
       propertyPath: m_Name
       value: Trap Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223573377760480623, guid: e00201f6eda9e91459c423423d1ea67b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e00201f6eda9e91459c423423d1ea67b, type: 3}
@@ -5518,6 +5522,10 @@ PrefabInstance:
     - target: {fileID: 970095735090242639, guid: 8886d3f42af72bd43a7d094afee45e50, type: 3}
       propertyPath: m_Name
       value: Enemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 970095735090242639, guid: 8886d3f42af72bd43a7d094afee45e50, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8886d3f42af72bd43a7d094afee45e50, type: 3}
