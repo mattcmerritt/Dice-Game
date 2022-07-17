@@ -29,7 +29,8 @@ public abstract class Enemy : MonoBehaviour, IUnstackable
         Health -= damage;
         if (Health < 0)
         {
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
+            FindObjectOfType<InputManager>().SelectedObject.GetComponent<Character>().CreateMovementIndicators();
         }
     }
 

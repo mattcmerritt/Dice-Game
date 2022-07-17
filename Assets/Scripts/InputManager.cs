@@ -173,6 +173,13 @@ public class InputManager : MonoBehaviour
 
     public void ChangeSelected(GameObject selected)
     {
+        // destroy attack indicators before starting move
+        AttackIndicator[] indicators = FindObjectsOfType<AttackIndicator>();
+        foreach (AttackIndicator i in indicators)
+        {
+            Destroy(i.gameObject);
+        }
+
         SelectedObject = selected;
         CursorX = Mathf.RoundToInt(selected.transform.position.x);
         CursorY = Mathf.RoundToInt(selected.transform.position.y);
