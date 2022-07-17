@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Die : MonoBehaviour
 {
     [SerializeField, Range(-1f, 1f)] private float XSpeed, YSpeed, ZSpeed;
+    [SerializeField] private float XRand, YRand, ZRand;
     private bool isRolling;
     private int RollValue;
 
@@ -15,6 +16,9 @@ public class Die : MonoBehaviour
     private void Start()
     {
         isRolling = true;
+        XRand = Random.Range(-5, 5);
+        YRand = Random.Range(-5, 5);
+        ZRand = Random.Range(-5, 5);
     }
 
     private void Update()
@@ -35,9 +39,9 @@ public class Die : MonoBehaviour
         }
         else if (isRolling)
         {
-            XSpeed = Mathf.Sin(Time.time);
-            YSpeed = Mathf.Sin(1.7f * Time.time);
-            ZSpeed = Mathf.Sin(0.33f * Time.time);
+            XSpeed = Mathf.Sin(Time.time * XRand);
+            YSpeed = Mathf.Sin(1.7f * Time.time * YRand);
+            ZSpeed = Mathf.Sin(0.33f * Time.time * ZRand);
 
             transform.Rotate(XSpeed, YSpeed, ZSpeed);
         }
