@@ -11,7 +11,7 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     [SerializeField] protected bool IsMoving;
     private bool UsedMovement;
     [SerializeField] public int MovesRemaining;
-    protected int X, Y;
+    [SerializeField] protected int X, Y;
     private int Health = 50;
 
     // coroutines for movement

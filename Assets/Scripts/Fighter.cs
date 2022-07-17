@@ -18,10 +18,21 @@ public class Fighter : Character
                 Enemy[] enemies = FindObjectsOfType<Enemy>();
                 foreach (Enemy enemy in enemies)
                 {
-                    if ((((Mathf.Abs(enemy.transform.position.x - X) < 1.1) && (Mathf.Abs(enemy.transform.position.x - X) > 0.1)) && (Mathf.RoundToInt(enemy.transform.position.y) == Y)) !=
-                        (((Mathf.Abs(enemy.transform.position.y - Y) < 1.1) && (Mathf.Abs(enemy.transform.position.y - Y) > 0.1)) && (Mathf.RoundToInt(enemy.transform.position.x) == X)))
+                    //Debug.Log("1 " + (Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.x - X)) == 1));
+                    //Debug.Log("2 " + (Mathf.RoundToInt(enemy.transform.position.y) == Y));
+                    //Debug.Log("3 " + (Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.y - Y)) == 1));
+                    //Debug.Log("4 " + (Mathf.RoundToInt(enemy.transform.position.x) == X));
+                    if (Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.x - X)) == 1 && Mathf.RoundToInt(enemy.transform.position.y) == Y)
                     {
                         if(enemy.GetComponentInChildren<AttackIndicator>() == null)
+                        {
+                            GameObject attack = Instantiate(AttackIndicator, enemy.transform);
+                            attack.GetComponent<AttackIndicator>().MovementCost = 1;
+                        }
+                    }
+                    if (Mathf.RoundToInt(Mathf.Abs(enemy.transform.position.y - Y)) == 1 && Mathf.RoundToInt(enemy.transform.position.x) == X)
+                    {
+                        if (enemy.GetComponentInChildren<AttackIndicator>() == null)
                         {
                             GameObject attack = Instantiate(AttackIndicator, enemy.transform);
                             attack.GetComponent<AttackIndicator>().MovementCost = 1;
