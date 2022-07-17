@@ -346,4 +346,9 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     {
         Health -= damage;
     }
+
+    public void DeactivateDie()
+    {
+        Die.SetActive(false);
+    }
 }

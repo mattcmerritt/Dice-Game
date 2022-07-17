@@ -65,14 +65,27 @@ public class GameManager : MonoBehaviour
                 IsPlayerTurn = false;
                 EnemyTurnStarted = false;
 
-                GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
+                if (GameObject.FindObjectOfType<InputManager>().SelectedObject != null)
+                {
+                    GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
+                }
+
+                Character[] characters = FindObjectsOfType<Character>();
+                foreach (Character ch in characters)
+                {
+                    ch.MovesRemaining = 0;
+                    ch.DeactivateDie();
+                }
             }
             else
             {
                 IsPlayerTurn = true;
                 PlayerTurnStarted = false;
 
-                GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
+                if (GameObject.FindObjectOfType<InputManager>().SelectedObject != null)
+                {
+                    GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
+                }
             }
         }
     }
