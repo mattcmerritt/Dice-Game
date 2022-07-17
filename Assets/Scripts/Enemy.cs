@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-public abstract class Enemy : MonoBehaviour, IUnstackable
+public abstract class Enemy : MonoBehaviour, IUnstackable, ISelectable
 {
     [SerializeField] protected int Health;
 
@@ -73,4 +73,31 @@ public abstract class Enemy : MonoBehaviour, IUnstackable
     }
 
     public abstract void TakeTurn();
+
+    public void Select()
+    {
+        GameObject.FindObjectOfType<UIManager>().SelectCharacter(gameObject);
+    }
+
+    public void Deselect()
+    {
+        GameObject.FindObjectOfType<UIManager>().DeselectCharacter();
+    }
+
+    public string GetDetails()
+    {
+        return $"{gameObject.name}\nHealth: {Health}";
+    }
+
+    private void OnMouseDown()
+    {
+        // Deselect other characters in scene
+        Character[] chars = GameObject.FindObjectsOfType<Character>();
+        foreach (Character ch in chars)
+        {
+            ch.Deselect();
+        }
+
+        Select();
+    }
 }

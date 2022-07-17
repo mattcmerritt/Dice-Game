@@ -6,9 +6,14 @@ public class MovementIndicator : MonoBehaviour
 {
     private InputManager InputManager;
 
+    [SerializeField] private Vector3 Displacement;
+
     private void Start()
     {
         InputManager = FindObjectOfType<InputManager>();
+
+        // shifting down by displacement
+        transform.position += Displacement;
     }
 
     private void Update()

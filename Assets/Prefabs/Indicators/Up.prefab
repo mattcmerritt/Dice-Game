@@ -122,4 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f7fa43f010eff4ba782097923805e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputManager: {fileID: 0}
+  Displacement: {x: 0, y: -0.33, z: 0}
