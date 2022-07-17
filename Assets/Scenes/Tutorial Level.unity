@@ -951,14 +951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'To begin, press space to roll the dice. Your roll will affect your character''s
-    strength and movement this turn.
-
-    You can select any character by clicking
-    on them, and you can move or attack by clicking on the blue or red tiles around
-    them.
-
-    Once you finish your turn, press enter to move on to the enemy turn.'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1600,6 +1593,7 @@ GameObject:
   - component: {fileID: 1562970901}
   - component: {fileID: 1562970903}
   - component: {fileID: 1562970902}
+  - component: {fileID: 1562970904}
   m_Layer: 5
   m_Name: Instructions
   m_TagString: Untagged
@@ -1622,7 +1616,7 @@ RectTransform:
   m_Father: {fileID: 1281325551}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.675}
+  m_AnchorMin: {x: 0.1, y: 0.7}
   m_AnchorMax: {x: 0.9, y: 0.89}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -1665,6 +1659,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562970900}
   m_CullTransparentMesh: 1
+--- !u!114 &1562970904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562970900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200222bcbed6cb94d87129b87b8063f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Messages:
+  - To begin, press space to roll the dice. Your rolls will affect your characters'
+    strength and movement this turn.
+  - You can select any character by clicking on them. You can also select the robots
+    to see what enemies you are up against.
+  - You can move or attack by right clicking on the blue or red tiles around your
+    character. The fighter excels in close combat right next to enemies. The ranger
+    can shoot as far as they can move, but are weaker. Use them together to clear
+    out enemies!
+  - Once you finish your turn, press enter to move on to the enemy turn.
+  - Rolling a low number will allow your characters to do increased damage at the
+    cost of limited movement and range.
+  - Clear out all the robots to proceed, but make sure not to lose either of your
+    characters!
+  TutorialTextbox: {fileID: 916248888}
 --- !u!1 &1594493055
 GameObject:
   m_ObjectHideFlags: 0
