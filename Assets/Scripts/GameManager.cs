@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     private Tilemap Trap;
 
+    public static int CurrentLevel = 1; // 1 is the tutorial level
+
     private void Start()
     {
         IsPlayerTurn = true;
@@ -87,6 +89,20 @@ public class GameManager : MonoBehaviour
                     GameObject.FindObjectOfType<InputManager>().SelectedObject.GetComponent<ISelectable>().Deselect();
                 }
             }
+        }
+
+        // win/loss conditions
+        Character[] chs = FindObjectsOfType<Character>();
+        Enemy[] ens = FindObjectsOfType<Enemy>();
+        if (chs.Length < 2)
+        {
+            FindObjectOfType<TransitionManager>().LoadRoom(CurrentLevel);
+        }
+        
+        if (ens.Length == 0)
+        {
+            CurrentLevel++;
+            FindObjectOfType<TransitionManager>().LoadRoom(CurrentLevel);
         }
     }
 

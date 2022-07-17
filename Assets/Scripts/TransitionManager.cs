@@ -10,21 +10,22 @@ public class TransitionManager : MonoBehaviour
 
     public void Update()
     {
+        // potentially remove
         if (Input.GetKeyDown(KeyCode.P))
         {
-            LoadRoom("Main Menu");
+            LoadRoom(0);
         }
     }
 
-    public void LoadRoom(string name)
+    public void LoadRoom(int index)
     {
-        StartCoroutine(LoadScene(name));
+        StartCoroutine(LoadScene(index));
     }
 
-    IEnumerator LoadScene(string name)
+    IEnumerator LoadScene(int index)
     {
         Animator.SetTrigger("Leaving");
         yield return new WaitForSeconds(Duration);
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(index);
     }
 }

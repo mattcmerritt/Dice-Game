@@ -345,6 +345,10 @@ public class Character : MonoBehaviour, ISelectable, IMovable, IUnstackable
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        if (Health < 0)
+        {
+            Destroy(gameObject);
+        } 
     }
 
     public void DeactivateDie()
