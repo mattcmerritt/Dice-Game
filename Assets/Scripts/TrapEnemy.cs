@@ -222,5 +222,13 @@ public class TrapEnemy : Enemy, IUnstackable
             }
         }
     }
+
+    public void OnDestroy()
+    {
+        foreach (Trap trap in Traps)
+        {
+            trap.Deactivate();
+        }
+    }
 }
 
