@@ -34,8 +34,6 @@ public class RangedEnemy : Enemy, IUnstackable
             yield return null;
         }
 
-        Debug.Log("roll=" + MovesRemaining);
-
         if (MovesRemaining > 0)
         {
             Character[] players = {FindObjectOfType<Fighter>(), FindObjectOfType<Ranger>()};
@@ -47,6 +45,7 @@ public class RangedEnemy : Enemy, IUnstackable
                     {
                         // animation?
                         Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
+                        player.TakeDamage(Random.Range(5, 11));
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.x - transform.position.x)) * 2;
                     }
                 }
@@ -55,6 +54,7 @@ public class RangedEnemy : Enemy, IUnstackable
                     while (Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2 <= MovesRemaining)
                     {
                         Debug.Log(player.name + " got hit by a " + MovesRemaining + "!");
+                        player.TakeDamage(Random.Range(5, 11));
                         MovesRemaining -= Mathf.RoundToInt(Mathf.Abs(player.transform.position.y - transform.position.y)) * 2;
                     }
                 }
